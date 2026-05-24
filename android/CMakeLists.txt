@@ -9,7 +9,6 @@ set(CMAKE_BUILD_TYPE   Release)
 # Optimizaciones de velocidad (crítico para inferencia en tiempo real)
 add_compile_options(
     -O3
-    -ffast-math
     -fvisibility=hidden
     -DNDEBUG
 )

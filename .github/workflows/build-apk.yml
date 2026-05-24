@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Setup llama.cpp
+        run: bash setup_llama.sh
+
       - name: Build APK
         run: flutter build apk --debug
 

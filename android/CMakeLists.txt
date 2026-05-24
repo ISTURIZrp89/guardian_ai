@@ -39,7 +39,7 @@ add_subdirectory(${LLAMA_SRC} llama_build)
 add_library(
     guardian_llama        # Nombre de la .so → libguardian_llama.so
     SHARED
-    ${NATIVE_ROOT}/llama_cpp/llama_bridge.c
+    ${NATIVE_ROOT}/llama_cpp/llama_bridge.cpp
 )
 
 # Includes necesarios para el bridge

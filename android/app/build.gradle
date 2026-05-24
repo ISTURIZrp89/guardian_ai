@@ -33,7 +33,7 @@ android {
         // Configuración de CMake para compilar llama.cpp
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++17 -O3 -ffast-math"
+                cppFlags "-std=c++17 -O3"
                 arguments "-DANDROID_STL=c++_shared",
                           "-DLLAMA_BUILD_TESTS=OFF",
                           "-DLLAMA_BUILD_EXAMPLES=OFF"

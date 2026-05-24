@@ -24,6 +24,29 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // ABI: arm64-v8a (móviles modernos), x86_64 (emulador)
+        ndk {
+            abiFilters "arm64-v8a", "x86_64"
+        }
+
+        // Configuración de CMake para compilar llama.cpp
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++17 -O3 -ffast-math"
+                arguments "-DANDROID_STL=c++_shared",
+                          "-DLLAMA_BUILD_TESTS=OFF",
+                          "-DLLAMA_BUILD_EXAMPLES=OFF"
+            }
+        }
+    }
+
+    // Indicar a Gradle dónde está el CMakeLists.txt
+    externalNativeBuild {
+        cmake {
+            path "../CMakeLists.txt"
+            version "3.22.1"
+        }
     }
 
     buildTypes {

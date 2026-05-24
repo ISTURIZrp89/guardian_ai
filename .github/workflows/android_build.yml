@@ -26,6 +26,11 @@ jobs:
         with:
           channel: 'stable'
 
+      - name: Descargar llama.cpp
+        run: |
+          chmod +x ./setup_llama.sh
+          ./setup_llama.sh
+
       - name: Instalar dependencias de Flutter
         run: flutter pub get
 

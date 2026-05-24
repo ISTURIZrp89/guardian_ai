@@ -1,0 +1,3 @@
+# Este directorio contiene los modelos GGUF descargados por la app.
+# Los archivos .gguf NO se suben a GitHub (ver .gitignore).
+# Este archivo .gitkeep existe solo para que Git mantenga el directorio en el repositorio.

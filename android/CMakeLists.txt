@@ -14,14 +14,23 @@ add_compile_options(
     -DNDEBUG
 )
 
-# Ruta al código fuente de llama.cpp (clonado como submódulo)
-set(LLAMA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/llama.cpp")
+# El CMakeLists.txt está en android/ → subimos un nivel (..) para llegar a la raíz del proyecto
+# Luego bajamos a native/ donde vive el código nativo
+set(NATIVE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../native")
+set(LLAMA_SRC   "${NATIVE_ROOT}/third_party/llama.cpp")
 
 # ── Opciones de llama.cpp ─────────────────────────────────────────
 set(LLAMA_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_SERVER   OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS    OFF CACHE BOOL "" FORCE)
+
+# Verificar que llama.cpp fue descargado por setup_llama.sh
+if(NOT EXISTS "${LLAMA_SRC}/CMakeLists.txt")
+    message(FATAL_ERROR
+        "llama.cpp no encontrado en ${LLAMA_SRC}.\n"
+        "Ejecuta ./setup_llama.sh antes de compilar.")
+endif()
 
 # Incluir llama.cpp como subdirectorio
 add_subdirectory(${LLAMA_SRC} llama_build)
@@ -30,7 +39,7 @@ add_subdirectory(${LLAMA_SRC} llama_build)
 add_library(
     guardian_llama        # Nombre de la .so → libguardian_llama.so
     SHARED
-    ${CMAKE_CURRENT_SOURCE_DIR}/../llama_cpp/llama_bridge.c
+    ${NATIVE_ROOT}/llama_cpp/llama_bridge.c
 )
 
 # Includes necesarios para el bridge

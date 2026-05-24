@@ -320,14 +320,9 @@ class AiLocalDataSource {
     );
     buffer.writeln('<|end|>');
 
-    if (context != null) {
+    if (context != null && context.hasPatientData) {
       buffer.writeln('<|user|>');
-      if (context.patientAge != null) {
-        buffer.writeln('Contexto del paciente: ${context.patientAge} años.');
-      }
-      if (context.currentMedications != null && context.currentMedications!.isNotEmpty) {
-        buffer.writeln('Medicamentos actuales: ${context.currentMedications!.join(", ")}.');
-      }
+      buffer.writeln('Contexto clínico del paciente: ${context.summary}');
     }
 
     buffer.writeln('<|user|>');

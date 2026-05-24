@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.guardianai.app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "26.1.10909125"  // NDK LTS compatible con llama.cpp
+    ndkVersion = "27.0.12077973"  // NDK LTS requerido por Firebase/Flutter plugins
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

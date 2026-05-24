@@ -26,9 +26,9 @@ if [ -d "$LLAMA_DIR/.git" ]; then
   cd "$LLAMA_DIR"
   git pull --ff-only
 else
-  echo "📥 Descargando llama.cpp (fuente del motor de IA)..."
+  echo "📥 Descargando llama.cpp versión b4553 (API estable)..."
   mkdir -p "$(dirname "$LLAMA_DIR")"
-  git clone --depth 1 https://github.com/ggml-org/llama.cpp.git "$LLAMA_DIR"
+  git clone --depth 1 --branch b4553 https://github.com/ggml-org/llama.cpp.git "$LLAMA_DIR"
 fi
 
 echo ""

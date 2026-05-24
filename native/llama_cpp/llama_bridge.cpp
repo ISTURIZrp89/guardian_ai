@@ -115,10 +115,6 @@ char* guardian_generate(
         return nullptr;
     }
 
-    // ── Limpiar caché KV ─────────────────────────────────────────
-    // API nueva: llama_kv_self_clear (reemplaza llama_kv_cache_clear)
-    llama_kv_self_clear(ctx);
-
     // ── Procesar prompt ──────────────────────────────────────────
     llama_batch batch = llama_batch_get_one(tokens, n_tokens);
     if (llama_decode(ctx, batch) != 0) {

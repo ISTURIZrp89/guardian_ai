@@ -26,8 +26,9 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Descargar llama.cpp
+      - name: Descargar llama.cpp (versión fija b4553)
         run: |
+          rm -rf native/third_party/llama.cpp
           chmod +x ./setup_llama.sh
           ./setup_llama.sh
 

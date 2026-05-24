@@ -1,0 +1,55 @@
+# Flutter
+.dart_tool/
+.packages
+build/
+*.dart_tool/
+*.packages
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+local.properties
+
+# iOS
+ios/Pods/
+ios/build/
+*.xcworkspace
+*.xcuserdata
+
+# macOS
+macos/Pods/
+macos/build/
+
+# Windows
+windows/Flutter/ephemeral/
+windows/x64/
+
+# Linux
+linux/flutter/ephemeral/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Models (large binary files)
+models/*.gguf
+models/*.bin
+
+# Logs
+*.log
+
+# Encryption
+*.key
+*.pem
+
+# llama.cpp source (descargado por setup_llama.sh — no commitear)
+native/third_party/

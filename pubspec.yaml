@@ -1,0 +1,90 @@
+name: guardian_ai
+description: Guardian AI - Plataforma Clínica Multiplataforma Offline-First
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State Management
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # Navigation
+  go_router: ^14.2.0
+
+  # Local Database
+  sqflite: ^2.3.3+1
+  sqflite_common_ffi: ^2.3.3
+  sqflite_common_ffi_web: ^0.4.3+1
+  sqlcipher_flutter_libs: ^0.6.0
+  path: ^1.9.0
+  path_provider: ^2.1.3
+  dio: ^5.4.3
+
+  # Security & Encryption
+  flutter_secure_storage: ^9.2.2
+  local_auth: ^2.2.0
+  crypto: ^3.0.3
+  encrypt: ^5.0.3
+  pointycastle: ^3.9.1
+
+  # PDF & Export
+  pdf: ^3.11.0
+  printing: ^5.13.1
+  share_plus: ^12.0.2
+
+  # UI & Animation
+  flutter_animate: ^4.5.0
+  shimmer: ^3.0.0
+  lottie: ^3.1.2
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1
+  cached_network_image: ^3.3.1
+  responsive_framework: ^1.4.0
+
+  # Utilities
+  intl: ^0.20.2
+  uuid: ^4.4.0
+  logger: ^2.3.0
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  collection: ^1.18.0
+  equatable: ^2.0.5
+  gap: ^3.0.1
+  fluttertoast: ^8.2.4
+  package_info_plus: ^8.0.2
+  device_info_plus: ^10.1.2
+  permission_handler: ^11.3.1
+
+  # Native FFI (para inferencia local con llama.cpp)
+  ffi: ^2.1.3
+
+  # Firebase & Auth
+  firebase_core: ^3.12.1
+  firebase_auth: ^5.5.1
+  google_sign_in: ^6.3.0
+  cloud_firestore: ^5.6.5
+  firebase_storage: ^12.4.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.9
+  freezed: ^2.5.2
+  json_serializable: ^6.8.0
+  riverpod_generator: ^2.4.0
+  mocktail: ^1.0.3
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - models/

@@ -1,0 +1,91 @@
+name: Guardian AI - Multiplatform Build
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v4
+        
+      - name: Configurar Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+          channel: 'stable'
+
+      - name: Descargar llama.cpp
+        run: |
+          chmod +x ./setup_llama.sh
+          ./setup_llama.sh
+
+      - name: Instalar dependencias de Flutter
+        run: flutter pub get
+
+      - name: Compilar APK (Release)
+        run: flutter build apk --release
+
+      - name: Subir APK generado
+        uses: actions/upload-artifact@v4
+        with:
+          name: guardian_ai-android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7
+
+  build-ios:
+    name: Build iOS App
+    runs-on: macos-latest
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v4
+
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+          channel: 'stable'
+
+      - name: Descargar llama.cpp
+        run: |
+          chmod +x ./setup_llama.sh
+          ./setup_llama.sh
+
+      - name: Instalar dependencias de Flutter
+        run: flutter pub get
+
+      - name: Instalar Pods
+        run: |
+          cd ios
+          pod install
+
+      - name: Compilar iOS (Sin Firma)
+        # Nota: Para generar un archivo .ipa real e instalable en dispositivos,
+        # se requieren certificados de Apple Developer y perfiles de aprovisionamiento.
+        # Aquí compilamos el formato .app como demostración.
+        run: flutter build ios --release --no-codesign
+
+      - name: Empaquetar iOS App
+        run: |
+          mkdir Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/
+          zip -r guardian_ai-ios-unsigned.ipa Payload
+
+      - name: Subir iOS IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: guardian_ai-ios-ipa
+          path: guardian_ai-ios-unsigned.ipa
+          retention-days: 7

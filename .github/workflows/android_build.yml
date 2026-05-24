@@ -44,3 +44,46 @@ jobs:
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 7
 
+  build-ios:
+    name: Build iOS App
+    runs-on: macos-latest
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v4
+
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Generar carpeta iOS faltante
+        run: flutter create --platforms=ios .
+
+      - name: Descargar llama.cpp
+        run: |
+          chmod +x ./setup_llama.sh
+          ./setup_llama.sh
+
+      - name: Instalar dependencias de Flutter
+        run: flutter pub get
+
+      - name: Instalar Pods
+        run: |
+          cd ios
+          pod install
+
+      - name: Compilar iOS (Sin Firma)
+        run: flutter build ios --release --no-codesign
+
+      - name: Empaquetar iOS App
+        run: |
+          mkdir Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/
+          zip -r guardian_ai-ios-unsigned.ipa Payload
+
+      - name: Subir iOS IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: guardian_ai-ios-ipa
+          path: guardian_ai-ios-unsigned.ipa
+          retention-days: 7

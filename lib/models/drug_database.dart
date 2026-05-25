@@ -72,8 +72,7 @@ class DrugDatabase {
       unit: 'mg',
       contraindications: ['Alergia a penicilinas'],
       warnings: ['Reacciones alérgicas graves posibles'],
-      nursingConsiderations:
-          'Preguntar por alergias antes de administrar',
+      nursingConsiderations: 'Preguntar por alergias antes de administrar',
     ),
     DrugReference(
       name: 'Heparina',
@@ -99,8 +98,7 @@ class DrugDatabase {
         'Estenosis aórtica idiopática hipertrófica',
       ],
       warnings: ['Aumenta frecuencia cardíaca', 'Arritmias'],
-      nursingConsiderations:
-          'Monitorizar ECG y presión arterial continuamente',
+      nursingConsiderations: 'Monitorizar ECG y presión arterial continuamente',
     ),
   ];
 

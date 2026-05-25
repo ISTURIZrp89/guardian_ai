@@ -190,7 +190,8 @@ void main() {
         expect(restored.id, original.id);
         expect(restored.patientId, original.patientId);
         expect(restored.bloodPressureSystolic, original.bloodPressureSystolic);
-        expect(restored.bloodPressureDiastolic, original.bloodPressureDiastolic);
+        expect(
+            restored.bloodPressureDiastolic, original.bloodPressureDiastolic);
         expect(restored.heartRate, original.heartRate);
         expect(restored.temperature, original.temperature);
         expect(restored.oxygenSaturation, original.oxygenSaturation);

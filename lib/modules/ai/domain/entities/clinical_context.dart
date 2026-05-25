@@ -73,7 +73,8 @@ class ClinicalContext {
       parts.add('Sexo: $patientGender');
     }
     if (vitalSigns.isNotEmpty) {
-      parts.add('Signos vitales: ${vitalSigns.entries.map((e) => '${e.key}: ${e.value}').join(', ')}');
+      parts.add(
+          'Signos vitales: ${vitalSigns.entries.map((e) => '${e.key}: ${e.value}').join(', ')}');
     }
     if (diagnoses.isNotEmpty) {
       parts.add('Dx: ${diagnoses.join(', ')}');

@@ -3,13 +3,11 @@ import 'dart:math';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:crypto/crypto.dart';
-import 'package:guardian_ai/core/constants/app_constants.dart';
 import 'package:guardian_ai/modules/ai/domain/entities/ai_model_info.dart';
 import 'package:guardian_ai/modules/ai/domain/entities/ai_response.dart';
 import 'package:guardian_ai/modules/ai/domain/entities/clinical_context.dart';
-import 'package:guardian_ai/modules/ai/data/datasources/prompt_templates.dart';
 import 'package:guardian_ai/modules/ai/data/services/llama_service.dart';
+import 'package:guardian_ai/modules/ai/data/services/ollama_service.dart';
 import 'package:guardian_ai/modules/ai/data/native/llama_ffi.dart';
 
 class AiLocalDataSource {
@@ -37,7 +35,8 @@ class AiLocalDataSource {
         quantization: 'Q4_K_M',
         hfRepo: 'TheBloke/BioMistral-7B-GGUF',
         hfFile: 'biomistral-7b.Q4_K_M.gguf',
-        downloadUrl: 'https://huggingface.co/TheBloke/BioMistral-7B-GGUF/resolve/main/biomistral-7b.Q4_K_M.gguf',
+        downloadUrl:
+            'https://huggingface.co/TheBloke/BioMistral-7B-GGUF/resolve/main/biomistral-7b.Q4_K_M.gguf',
         sha256Checksum: 'dummy_checksum_1', // Reemplazar con real
         isPremium: false,
         createdAt: now,
@@ -52,7 +51,8 @@ class AiLocalDataSource {
         quantization: 'Q4_K_M',
         hfRepo: 'TheBloke/meditron-7b-GGUF',
         hfFile: 'meditron-7b.Q4_K_M.gguf',
-        downloadUrl: 'https://huggingface.co/TheBloke/meditron-7b-GGUF/resolve/main/meditron-7b.Q4_K_M.gguf',
+        downloadUrl:
+            'https://huggingface.co/TheBloke/meditron-7b-GGUF/resolve/main/meditron-7b.Q4_K_M.gguf',
         sha256Checksum: 'dummy_checksum_2', // Reemplazar con real
         isPremium: false,
         createdAt: now,
@@ -67,7 +67,8 @@ class AiLocalDataSource {
         quantization: 'Q4_K_M',
         hfRepo: 'TheBloke/ClinicalCamel-7B-GGUF',
         hfFile: 'clinicalcamel-7b.Q4_K_M.gguf',
-        downloadUrl: 'https://huggingface.co/TheBloke/ClinicalCamel-7B-GGUF/resolve/main/clinicalcamel-7b.Q4_K_M.gguf',
+        downloadUrl:
+            'https://huggingface.co/TheBloke/ClinicalCamel-7B-GGUF/resolve/main/clinicalcamel-7b.Q4_K_M.gguf',
         sha256Checksum: 'dummy_checksum_3', // Reemplazar con real
         isPremium: false,
         createdAt: now,
@@ -82,7 +83,8 @@ class AiLocalDataSource {
         quantization: 'Q8_0',
         hfRepo: 'TheBloke/BioMistral-7B-GGUF',
         hfFile: 'biomistral-7b.Q8_0.gguf',
-        downloadUrl: 'https://huggingface.co/TheBloke/BioMistral-7B-GGUF/resolve/main/biomistral-7b.Q8_0.gguf',
+        downloadUrl:
+            'https://huggingface.co/TheBloke/BioMistral-7B-GGUF/resolve/main/biomistral-7b.Q8_0.gguf',
         sha256Checksum: 'dummy_checksum_4', // Reemplazar con real
         isPremium: true,
         createdAt: now,
@@ -97,7 +99,8 @@ class AiLocalDataSource {
         quantization: 'Q4_K_M',
         hfRepo: 'Intelligent-Internet/II-Medical-8B-1706-GGUF',
         hfFile: 'II-Medical-8B-1706.Q4_K_M.gguf',
-        downloadUrl: 'https://huggingface.co/Intelligent-Internet/II-Medical-8B-1706-GGUF/resolve/main/II-Medical-8B-1706.Q4_K_M.gguf',
+        downloadUrl:
+            'https://huggingface.co/Intelligent-Internet/II-Medical-8B-1706-GGUF/resolve/main/II-Medical-8B-1706.Q4_K_M.gguf',
         sha256Checksum: 'dummy_checksum_5',
         isPremium: false,
         createdAt: now,
@@ -112,9 +115,11 @@ class AiLocalDataSource {
         quantization: 'Q4_K_M',
         hfRepo: 'mradermacher/LlaMA-3.1-8B-Medical-GGUF',
         hfFile: 'LlaMA-3.1-8B-Medical.Q4_K_M.gguf',
-        downloadUrl: 'https://huggingface.co/mradermacher/LlaMA-3.1-8B-Medical-GGUF/resolve/main/LlaMA-3.1-8B-Medical.Q4_K_M.gguf',
+        downloadUrl:
+            'https://huggingface.co/mradermacher/LlaMA-3.1-8B-Medical-GGUF/resolve/main/LlaMA-3.1-8B-Medical.Q4_K_M.gguf',
         sha256Checksum: 'dummy_checksum_6',
-        isPremium: false, // Opcional: cámbialo a true si quieres que sea Premium
+        isPremium:
+            false, // Opcional: cámbialo a true si quieres que sea Premium
         createdAt: now,
         updatedAt: now,
       ),
@@ -144,9 +149,9 @@ class AiLocalDataSource {
     // Cargar en LlamaService si la plataforma lo soporta (Android/Linux/macOS)
     if (LlamaFFI.isSupported) {
       final loaded = await LlamaService.instance.loadModel(
-        modelPath:  model.path,
-        nCtx:       2048,
-        nThreads:   4,
+        modelPath: model.path,
+        nCtx: 2048,
+        nThreads: 4,
       );
       if (!loaded) return false;
       _memoryUsageMb = 2800.0 + _random.nextDouble() * 400;
@@ -181,7 +186,8 @@ class AiLocalDataSource {
 
   Stream<double> getDownloadProgress(String modelId) {
     if (!_downloadProgressControllers.containsKey(modelId)) {
-      _downloadProgressControllers[modelId] = StreamController<double>.broadcast();
+      _downloadProgressControllers[modelId] =
+          StreamController<double>.broadcast();
     }
     return _downloadProgressControllers[modelId]!.stream;
   }
@@ -192,13 +198,14 @@ class AiLocalDataSource {
     if (model == null) return false;
 
     if (model.isPremium) {
-       // TODO: Lógica de validación de suscripción aquí.
-       // return false si no tiene acceso.
+      // TODO: Lógica de validación de suscripción aquí.
+      // return false si no tiene acceso.
     }
 
     final savePath = model.path;
     if (!_downloadProgressControllers.containsKey(modelId)) {
-      _downloadProgressControllers[modelId] = StreamController<double>.broadcast();
+      _downloadProgressControllers[modelId] =
+          StreamController<double>.broadcast();
     }
     final controller = _downloadProgressControllers[modelId]!;
 
@@ -213,7 +220,7 @@ class AiLocalDataSource {
           }
         },
       );
-      
+
       // Verificación de integridad SHA-256
       // Comentado para desarrollo por cuestiones de velocidad, ya que los archivos pesan ~4GB
       /*
@@ -224,7 +231,7 @@ class AiLocalDataSource {
         throw Exception('Checksum verification failed');
       }
       */
-      
+
       controller.add(1.0);
       return true;
     } catch (e) {
@@ -268,29 +275,29 @@ class AiLocalDataSource {
 
     final startTime = DateTime.now();
     String content;
+    bool usedRealInference = false;
 
-    // ── Inferencia Real con llama.cpp ────────────────────────────
+    // ── Inferencia Real con llama.cpp (Local Nativa) ────────────────────────────
     if (LlamaFFI.isSupported && LlamaService.instance.isModelLoaded) {
-      // Construir el prompt con contexto clínico
       final fullPrompt = _buildClinicalPrompt(prompt, context);
       try {
         content = await LlamaService.instance.generate(
-          prompt:      fullPrompt,
-          maxTokens:   512,
-          temperature: 0.3,  // Bajo = respuestas más precisas (uso médico)
+          prompt: fullPrompt,
+          maxTokens: 512,
+          temperature: 0.3, // Bajo = respuestas más precisas (uso médico)
         );
+        usedRealInference = true;
       } catch (e) {
-        // Si falla la inferencia nativa, usar simulación como fallback
-        content = _generateSimulatedResponse(prompt, context);
+        // Fallback a Ollama si está disponible
+        final ollamaResult = await _tryOllamaInference(prompt, context);
+        content = ollamaResult.$1;
+        usedRealInference = ollamaResult.$2;
       }
     } else {
-      // ── Modo simulación: Web o modelo no cargado ─────────────
-      if (_loadedModel != null) {
-        await Future.delayed(Duration(milliseconds: 300 + _random.nextInt(1200)));
-      } else {
-        await Future.delayed(Duration(milliseconds: 500 + _random.nextInt(800)));
-      }
-      content = _generateSimulatedResponse(prompt, context);
+      // ── Inferencia Real con Ollama (Servidor Local/WiFi) ────────────────────────
+      final ollamaResult = await _tryOllamaInference(prompt, context);
+      content = ollamaResult.$1;
+      usedRealInference = ollamaResult.$2;
     }
 
     final processingTime = DateTime.now().difference(startTime);
@@ -298,7 +305,7 @@ class AiLocalDataSource {
 
     final response = AiResponse(
       content: content,
-      confidence: LlamaService.instance.isModelLoaded ? 0.92 : 0.75 + _random.nextDouble() * 0.2,
+      confidence: usedRealInference ? 0.92 : 0.75 + _random.nextDouble() * 0.2,
       processingTimeMs: processingTime.inMilliseconds,
       tokensUsed: content.split(' ').length,
       isComplete: true,
@@ -309,15 +316,50 @@ class AiLocalDataSource {
     return response;
   }
 
+  /// Intenta realizar inferencia real usando Ollama sobre la red local
+  Future<(String, bool)> _tryOllamaInference(
+      String prompt, ClinicalContext? context) async {
+    try {
+      final ollama = OllamaService.instance;
+
+      // Autodetectar dirección IP según el entorno para apuntar a la PC de desarrollo
+      if (ollama.baseUrl == 'http://localhost:11434') {
+        if (Platform.isAndroid) {
+          // 10.0.2.2 es la IP del Host en el emulador Android de Google
+          ollama.configure(host: 'http://10.0.2.2:11434', model: 'biomistral');
+        } else {
+          ollama.configure(host: 'http://localhost:11434', model: 'biomistral');
+        }
+      }
+
+      final isAvailable = await ollama.checkConnection();
+      if (isAvailable) {
+        final fullPrompt = _buildClinicalPrompt(prompt, context);
+        final result = await ollama.generate(
+          prompt: fullPrompt,
+          temperature: 0.3,
+          maxTokens: 512,
+        );
+        if (result.isNotEmpty) {
+          return (result, true);
+        }
+      }
+    } catch (_) {
+      // Si falla, cae al simulador de abajo
+    }
+
+    // Si no está Ollama, cae en simulación estructurada
+    return (_generateSimulatedResponse(prompt, context), false);
+  }
+
   /// Construye el prompt completo con contexto clínico para el modelo
   String _buildClinicalPrompt(String userMessage, ClinicalContext? context) {
     final buffer = StringBuffer();
     buffer.writeln('<|system|>');
     buffer.writeln(
-      'Eres un asistente médico especializado. Proporciona información clínica '
-      'precisa y basada en evidencia. IMPORTANTE: Esta información es solo de '
-      'apoyo para profesionales de salud. Siempre recomienda consulta médica directa.'
-    );
+        'Eres un asistente médico especializado. Proporciona información clínica '
+        'precisa y basada en evidencia. IMPORTANTE: Esta información es solo de '
+        'apoyo para profesionales de salud. Siempre recomienda consulta médica directa.');
     buffer.writeln('<|end|>');
 
     if (context != null && context.hasPatientData) {
@@ -335,19 +377,24 @@ class AiLocalDataSource {
 
   AiResponseCategory _categorizePrompt(String prompt) {
     final lower = prompt.toLowerCase();
-    if (lower.contains('farmacol') || lower.contains('medicamento') ||
+    if (lower.contains('farmacol') ||
+        lower.contains('medicamento') ||
         lower.contains('fármaco')) {
       return AiResponseCategory.pharmacologic;
     }
     if (lower.contains('interacci')) {
       return AiResponseCategory.interaction;
     }
-    if (lower.contains('soap') || lower.contains('nanda') ||
-        lower.contains('resumen') || lower.contains('summary')) {
+    if (lower.contains('soap') ||
+        lower.contains('nanda') ||
+        lower.contains('resumen') ||
+        lower.contains('summary')) {
       return AiResponseCategory.clinicalSummary;
     }
-    if (lower.contains('signos vitales') || lower.contains('vital') ||
-        lower.contains('presión') || lower.contains('frecuencia')) {
+    if (lower.contains('signos vitales') ||
+        lower.contains('vital') ||
+        lower.contains('presión') ||
+        lower.contains('frecuencia')) {
       return AiResponseCategory.vitalInterpretation;
     }
     if (lower.contains('recomendación') || lower.contains('recomend')) {
@@ -362,8 +409,8 @@ class AiLocalDataSource {
     if (lower.contains('analiza') && lower.contains('medicamento')) {
       return _simulateMedicationAnalysis(prompt);
     }
-    if (lower.contains('formato soap') || lower.contains('soap') &&
-        lower.contains('resumen')) {
+    if (lower.contains('formato soap') ||
+        lower.contains('soap') && lower.contains('resumen')) {
       return _simulateSoapSummary(context);
     }
     if (lower.contains('formato nanda') || lower.contains('nanda')) {
@@ -553,34 +600,32 @@ class AiLocalDataSource {
   String _simulateGeneralResponse(String prompt, ClinicalContext? context) {
     final responses = [
       'Basado en la información proporcionada, puedo indicar que '
-      'el manejo clínico debe enfocarse en el monitoreo continuo '
-      'de signos vitales y la evaluación de la respuesta al tratamiento. '
-      'Se recomienda mantener una comunicación efectiva con el equipo '
-      'multidisciplinario para optimizar los resultados del paciente.\n\n'
-      '**Recomendaciones:**\n'
-      '• Continuar con las intervenciones actuales\n'
-      '• Monitorear evolución cada 4-6 horas\n'
-      '• Documentar hallazgos en el expediente clínico\n'
-      '• Educar al paciente y familiares sobre el plan de cuidados\n\n'
-      '> *¿Necesita información más específica sobre algún aspecto clínico '
-      'en particular?*',
-
+          'el manejo clínico debe enfocarse en el monitoreo continuo '
+          'de signos vitales y la evaluación de la respuesta al tratamiento. '
+          'Se recomienda mantener una comunicación efectiva con el equipo '
+          'multidisciplinario para optimizar los resultados del paciente.\n\n'
+          '**Recomendaciones:**\n'
+          '• Continuar con las intervenciones actuales\n'
+          '• Monitorear evolución cada 4-6 horas\n'
+          '• Documentar hallazgos en el expediente clínico\n'
+          '• Educar al paciente y familiares sobre el plan de cuidados\n\n'
+          '> *¿Necesita información más específica sobre algún aspecto clínico '
+          'en particular?*',
       'Desde la perspectiva de enfermería, es importante considerar '
-      'los siguientes aspectos para el manejo integral del paciente:\n\n'
-      '1. **Evaluación continua:** Valorar cambios en el estado clínico\n'
-      '2. **Intervenciones:** Aplicar las intervenciones NIC según taxonomía\n'
-      '3. **Documentación:** Registrar en formato SOAP estructurado\n'
-      '4. **Comunicación:** Reportar hallazgos relevantes al médico\n\n'
-      '**Recordatorio:** La seguridad del paciente es la prioridad '
-      'fundamental en toda intervención de enfermería.',
-
+          'los siguientes aspectos para el manejo integral del paciente:\n\n'
+          '1. **Evaluación continua:** Valorar cambios en el estado clínico\n'
+          '2. **Intervenciones:** Aplicar las intervenciones NIC según taxonomía\n'
+          '3. **Documentación:** Registrar en formato SOAP estructurado\n'
+          '4. **Comunicación:** Reportar hallazgos relevantes al médico\n\n'
+          '**Recordatorio:** La seguridad del paciente es la prioridad '
+          'fundamental en toda intervención de enfermería.',
       'De acuerdo con las guías de práctica clínica y la evidencia '
-      'disponible, el abordaje recomendado incluye:\n\n'
-      '• **Evaluación inicial:** Completa y sistemática\n'
-      '• **Plan de cuidados:** Individualizado basado en NANDA\n'
-      '• **Ejecución:** Intervenciones con fundamento científico\n'
-      '• **Evaluación:** Continua de resultados esperados\n\n'
-      '¿Le gustaría que profundice en algún aspecto específico?',
+          'disponible, el abordaje recomendado incluye:\n\n'
+          '• **Evaluación inicial:** Completa y sistemática\n'
+          '• **Plan de cuidados:** Individualizado basado en NANDA\n'
+          '• **Ejecución:** Intervenciones con fundamento científico\n'
+          '• **Evaluación:** Continua de resultados esperados\n\n'
+          '¿Le gustaría que profundice en algún aspecto específico?',
     ];
 
     return responses[_random.nextInt(responses.length)];

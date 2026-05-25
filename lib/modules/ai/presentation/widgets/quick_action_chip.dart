@@ -26,14 +26,12 @@ class QuickActionChip extends StatelessWidget {
           vertical: AppDimensions.sm,
         ),
         decoration: BoxDecoration(
-          color: isEnabled
-              ? AppColors.surfaceElevated
-              : AppColors.bgInput,
+          color: isEnabled ? AppColors.surfaceElevated : AppColors.bgInput,
           borderRadius: BorderRadius.circular(AppDimensions.cardRadiusSmall),
           border: Border.all(
             color: isEnabled
                 ? AppColors.borderDefault
-                : AppColors.borderDefault.withOpacity(0.3),
+                : AppColors.borderDefault.withValues(alpha: 0.3),
           ),
         ),
         child: Row(
@@ -42,17 +40,15 @@ class QuickActionChip extends StatelessWidget {
             Icon(
               icon,
               size: AppDimensions.iconSizeSmall,
-              color: isEnabled
-                  ? AppColors.textClinical
-                  : AppColors.textDisabled,
+              color:
+                  isEnabled ? AppColors.textClinical : AppColors.textDisabled,
             ),
             const SizedBox(width: AppDimensions.sm),
             Text(
               label,
               style: TextStyle(
-                color: isEnabled
-                    ? AppColors.textPrimary
-                    : AppColors.textDisabled,
+                color:
+                    isEnabled ? AppColors.textPrimary : AppColors.textDisabled,
                 fontSize: AppDimensions.fontSizeXs,
                 fontWeight: FontWeight.w500,
               ),

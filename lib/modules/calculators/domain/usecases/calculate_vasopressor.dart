@@ -59,7 +59,8 @@ class CalculateVasopressorUseCase {
     required double doseMcgKgMin,
     double? concentrationMcgPerMl,
   }) {
-    if (weight < AppConstants.minWeightKg || weight > AppConstants.maxWeightKg) {
+    if (weight < AppConstants.minWeightKg ||
+        weight > AppConstants.maxWeightKg) {
       throw ValidationException(
         'El peso debe estar entre ${AppConstants.minWeightKg} y ${AppConstants.maxWeightKg} kg',
         code: 'INVALID_WEIGHT',
@@ -76,7 +77,8 @@ class CalculateVasopressorUseCase {
     final normalizedName = vasopressorName.toLowerCase().trim();
     final info = VasopressorInfo.common[normalizedName];
 
-    final effectiveConcentration = concentrationMcgPerMl ?? info?.standardConcentrationMcgPerMl;
+    final effectiveConcentration =
+        concentrationMcgPerMl ?? info?.standardConcentrationMcgPerMl;
     if (effectiveConcentration == null) {
       throw ValidationException(
         'Vasopresor "$vasopressorName" no reconocido. Use: ${VasopressorInfo.common.keys.join(", ")}',
@@ -94,16 +96,19 @@ class CalculateVasopressorUseCase {
     if (info != null) {
       if (doseMcgKgMin > info.usualDoseMax) {
         isCritical = true;
-        description = '¡ATENCIÓN! La dosis de ${info.name} (${doseMcgKgMin.toStringAsFixed(3)} ${info.unit}) '
+        description =
+            '¡ATENCIÓN! La dosis de ${info.name} (${doseMcgKgMin.toStringAsFixed(3)} ${info.unit}) '
             'supera el rango terapéutico máximo (${info.usualDoseMax} ${info.unit}). '
             'Riesgo de efectos adversos graves.';
       } else if (doseMcgKgMin > info.usualDoseMax * 0.8) {
         isWarning = true;
-        description = 'Dosis de ${info.name} en el límite superior del rango terapéutico '
+        description =
+            'Dosis de ${info.name} en el límite superior del rango terapéutico '
             '(${info.usualDoseMin}-${info.usualDoseMax} ${info.unit}). Monitorear signos vitales.';
       } else if (doseMcgKgMin < info.usualDoseMin) {
         isWarning = true;
-        description = 'Dosis de ${info.name} por debajo del rango terapéutico habitual '
+        description =
+            'Dosis de ${info.name} por debajo del rango terapéutico habitual '
             '(${info.usualDoseMin}-${info.usualDoseMax} ${info.unit}). '
             'Evaluar respuesta clínica.';
       } else {

@@ -9,7 +9,8 @@ class CalculateInfusionUseCase {
     required double concentration,
     double? maxRate,
   }) {
-    if (weight < AppConstants.minWeightKg || weight > AppConstants.maxWeightKg) {
+    if (weight < AppConstants.minWeightKg ||
+        weight > AppConstants.maxWeightKg) {
       throw ValidationException(
         'El peso debe estar entre ${AppConstants.minWeightKg} y ${AppConstants.maxWeightKg} kg',
         code: 'INVALID_WEIGHT',
@@ -48,14 +49,17 @@ class CalculateInfusionUseCase {
 
     if (maxRate != null && roundedRate > maxRate) {
       isCritical = true;
-      description = '¡ATENCIÓN! La velocidad de infusión (${roundedRate.toStringAsFixed(1)} mL/h) '
+      description =
+          '¡ATENCIÓN! La velocidad de infusión (${roundedRate.toStringAsFixed(1)} mL/h) '
           'supera la velocidad máxima recomendada de ${maxRate.toStringAsFixed(1)} mL/h.';
     } else if (roundedRate > 500) {
       isWarning = true;
-      description = 'Velocidad de infusión elevada (${roundedRate.toStringAsFixed(1)} mL/h). '
+      description =
+          'Velocidad de infusión elevada (${roundedRate.toStringAsFixed(1)} mL/h). '
           'Verificar acceso venoso y tolerancia del paciente.';
     } else {
-      description = 'Velocidad de infusión dentro de rangos clínicos aceptables.';
+      description =
+          'Velocidad de infusión dentro de rangos clínicos aceptables.';
     }
 
     return CalculationResult(

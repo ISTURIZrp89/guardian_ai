@@ -58,22 +58,31 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
   })  : _calculateDose = calculateDose ?? CalculateDoseUseCase(),
         _calculateInfusion = calculateInfusion ?? CalculateInfusionUseCase(),
         _calculateDripRate = calculateDripRate ?? CalculateDripRateUseCase(),
-        _calculateBodySurface = calculateBodySurface ?? CalculateBodySurfaceUseCase(),
-        _calculateFluidBalance = calculateFluidBalance ?? CalculateFluidBalanceUseCase(),
-        _calculatePediatricDose = calculatePediatricDose ?? CalculatePediatricDoseUseCase(),
-        _calculateVasopressor = calculateVasopressor ?? CalculateVasopressorUseCase(),
-        _calculateMaxDoseCheck = calculateMaxDoseCheck ?? CalculateMaxDoseCheckUseCase(),
-        _calculateGlasgowComa = calculateGlasgowComa ?? CalculateGlasgowComaUseCase(),
+        _calculateBodySurface =
+            calculateBodySurface ?? CalculateBodySurfaceUseCase(),
+        _calculateFluidBalance =
+            calculateFluidBalance ?? CalculateFluidBalanceUseCase(),
+        _calculatePediatricDose =
+            calculatePediatricDose ?? CalculatePediatricDoseUseCase(),
+        _calculateVasopressor =
+            calculateVasopressor ?? CalculateVasopressorUseCase(),
+        _calculateMaxDoseCheck =
+            calculateMaxDoseCheck ?? CalculateMaxDoseCheckUseCase(),
+        _calculateGlasgowComa =
+            calculateGlasgowComa ?? CalculateGlasgowComaUseCase(),
         _calculateQtc = calculateQtc ?? CalculateQtcUseCase(),
         _calculateAnionGap = calculateAnionGap ?? CalculateAnionGapUseCase(),
-        _calculateApacheScore = calculateApacheScore ?? CalculateApacheScoreUseCase(),
+        _calculateApacheScore =
+            calculateApacheScore ?? CalculateApacheScoreUseCase(),
         _calculateMeldScore = calculateMeldScore ?? CalculateMeldScoreUseCase(),
         _calculateChadsVasc = calculateChadsVasc ?? CalculateChadsVascUseCase(),
-        _calculateWellsCriteria = calculateWellsCriteria ?? CalculateWellsCriteriaUseCase(),
+        _calculateWellsCriteria =
+            calculateWellsCriteria ?? CalculateWellsCriteriaUseCase(),
         _calculateCurb65 = calculateCurb65 ?? CalculateCurb65UseCase();
 
   @override
-  CalculationResult calculate(ClinicalFormulaType type, Map<String, double> params) {
+  CalculationResult calculate(
+      ClinicalFormulaType type, Map<String, double> params) {
     try {
       switch (type) {
         case ClinicalFormulaType.mgKgDose:
@@ -103,7 +112,8 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
           return _calculateDripRate.calculateDropsPerMin(
             volumeMl: params['volumeMl']!,
             timeMinutes: params['timeMinutes']!,
-            dropFactor: params['dropFactor'] ?? CalculateDripRateUseCase.standardDropFactor,
+            dropFactor: params['dropFactor'] ??
+                CalculateDripRateUseCase.standardDropFactor,
           );
 
         case ClinicalFormulaType.microdropsPerMin:
@@ -126,8 +136,11 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
 
         case ClinicalFormulaType.vasopressorDose:
           final vasopressors = [
-            'noradrenalina', 'dobutamina', 'dopamina',
-            'adrenalina', 'vasopresina',
+            'noradrenalina',
+            'dobutamina',
+            'dopamina',
+            'adrenalina',
+            'vasopresina',
           ];
           final vIndex = params['vasopressorName']?.toInt() ?? 0;
           final vName = vasopressors[vIndex.clamp(0, vasopressors.length - 1)];
@@ -140,9 +153,16 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
 
         case ClinicalFormulaType.maxDoseCheck:
           final medications = [
-            'paracetamol', 'ibuprofeno', 'morfina', 'tramadol',
-            'amoxicilina', 'omeprazol', 'enoxaparina', 'metformina',
-            'furosemida', 'haloperidol',
+            'paracetamol',
+            'ibuprofeno',
+            'morfina',
+            'tramadol',
+            'amoxicilina',
+            'omeprazol',
+            'enoxaparina',
+            'metformina',
+            'furosemida',
+            'haloperidol',
           ];
           final mIndex = params['medication']?.toInt() ?? 0;
           final medName = medications[mIndex.clamp(0, medications.length - 1)];
@@ -220,9 +240,11 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
         case ClinicalFormulaType.wellsCriteria:
           return _calculateWellsCriteria.execute(
             hasClinicalSignsDvt: (params['hasClinicalSignsDvt'] ?? 0) == 1,
-            hasAlternativeDiagnosis: (params['hasAlternativeDiagnosis'] ?? 0) == 1,
+            hasAlternativeDiagnosis:
+                (params['hasAlternativeDiagnosis'] ?? 0) == 1,
             heartRateOver100: (params['heartRateOver100'] ?? 0) == 1,
-            hasImmobilizationOrSurgery: (params['hasImmobilizationOrSurgery'] ?? 0) == 1,
+            hasImmobilizationOrSurgery:
+                (params['hasImmobilizationOrSurgery'] ?? 0) == 1,
             hasPreviousDvtOrPe: (params['hasPreviousDvtOrPe'] ?? 0) == 1,
             hasHemoptysis: (params['hasHemoptysis'] ?? 0) == 1,
             hasMalignancy: (params['hasMalignancy'] ?? 0) == 1,
@@ -254,7 +276,8 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
     required double concentrationMgPerMl,
   }) {
     if (mg <= 0) {
-      throw CalculationFailure('Los mg deben ser mayor a 0', code: 'INVALID_MG');
+      throw CalculationFailure('Los mg deben ser mayor a 0',
+          code: 'INVALID_MG');
     }
     if (concentrationMgPerMl <= 0) {
       throw CalculationFailure(

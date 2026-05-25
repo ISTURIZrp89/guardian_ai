@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:guardian_ai/core/constants/app_colors.dart';
 import 'package:guardian_ai/core/constants/app_dimensions.dart';
-import 'package:guardian_ai/core/extensions/context_extensions.dart';
+
 import 'package:guardian_ai/modules/calculators/domain/entities/clinical_formula.dart';
 import 'package:guardian_ai/modules/calculators/data/models/formula_parameter_model.dart';
 import 'package:guardian_ai/modules/calculators/presentation/providers/calculator_provider.dart';
@@ -124,7 +124,8 @@ class CalculatorDetailPage extends ConsumerWidget {
                 ),
                 const SizedBox(height: AppDimensions.sm),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                   decoration: BoxDecoration(
                     color: AppColors.monitorGreen.withAlpha(25),
                     borderRadius: BorderRadius.circular(6),
@@ -167,7 +168,8 @@ class CalculatorDetailPage extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.list_alt, color: AppColors.textDisabled.withAlpha(150), size: 18),
+              Icon(Icons.list_alt,
+                  color: AppColors.textDisabled.withAlpha(150), size: 18),
               const SizedBox(width: 8),
               const Text(
                 'PARÁMETROS',
@@ -217,23 +219,39 @@ class CalculatorDetailPage extends ConsumerWidget {
     if (_isDropdownField(formulaType, param.name)) {
       return _buildDropdownField(param, state, notifier, formulaType);
     }
-    if (param.name == 'vasopressorName' || param.name == 'medication' || param.name == 'doseType') {
+    if (param.name == 'vasopressorName' ||
+        param.name == 'medication' ||
+        param.name == 'doseType') {
       return _buildSelectionField(param, state, notifier);
     }
     return _buildNumericField(param, state, notifier);
   }
 
   bool _isDropdownField(ClinicalFormulaType type, String paramName) {
-    if (type == ClinicalFormulaType.glasgowComa) return true;
-    if (type == ClinicalFormulaType.sedationScore && paramName == 'ramsayScore') return true;
-    if (type == ClinicalFormulaType.apacheScore && paramName == 'glasgowComaScore') return true;
+    if (type == ClinicalFormulaType.glasgowComa) {
+      return true;
+    }
+    if (type == ClinicalFormulaType.sedationScore &&
+        paramName == 'ramsayScore') {
+      return true;
+    }
+    if (type == ClinicalFormulaType.apacheScore &&
+        paramName == 'glasgowComaScore') {
+      return true;
+    }
     return false;
   }
 
   bool _isBooleanField(ClinicalFormulaType type, String paramName) {
-    if (type == ClinicalFormulaType.chadsVasc && paramName != 'age') return true;
-    if (type == ClinicalFormulaType.wellsCriteria) return true;
-    if (type == ClinicalFormulaType.curb65) return true;
+    if (type == ClinicalFormulaType.chadsVasc && paramName != 'age') {
+      return true;
+    }
+    if (type == ClinicalFormulaType.wellsCriteria) {
+      return true;
+    }
+    if (type == ClinicalFormulaType.curb65) {
+      return true;
+    }
     return false;
   }
 
@@ -247,17 +265,21 @@ class CalculatorDetailPage extends ConsumerWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: Container(
         decoration: BoxDecoration(
-          color: isOn ? AppColors.monitorGreen.withAlpha(15) : Colors.transparent,
+          color:
+              isOn ? AppColors.monitorGreen.withAlpha(15) : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isOn ? AppColors.monitorGreen.withAlpha(40) : Colors.transparent,
+            color: isOn
+                ? AppColors.monitorGreen.withAlpha(40)
+                : Colors.transparent,
           ),
         ),
         child: Row(
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                 child: Text(
                   param.label,
                   style: const TextStyle(
@@ -271,7 +293,7 @@ class CalculatorDetailPage extends ConsumerWidget {
             ),
             Switch(
               value: isOn,
-              activeColor: AppColors.monitorGreen,
+              activeThumbColor: AppColors.monitorGreen,
               onChanged: (value) {
                 notifier.updateParameter(param.name, value ? 1.0 : 0.0);
               },
@@ -294,7 +316,8 @@ class CalculatorDetailPage extends ConsumerWidget {
     if (formulaType == ClinicalFormulaType.sedationScore) {
       return _buildRamsayDropdown(param, state, notifier);
     }
-    if (formulaType == ClinicalFormulaType.apacheScore && param.name == 'glasgowComaScore') {
+    if (formulaType == ClinicalFormulaType.apacheScore &&
+        param.name == 'glasgowComaScore') {
       return _buildGcsDropdown(param, state, notifier);
     }
     return _buildNumericField(param, state, notifier);
@@ -317,12 +340,25 @@ class CalculatorDetailPage extends ConsumerWidget {
         break;
       case 'verbalResponse':
         label = 'Respuesta verbal';
-        options = ['No responde', 'Sonidos incomprensibles', 'Palabras inapropiadas', 'Confusa', 'Orientada'];
+        options = [
+          'No responde',
+          'Sonidos incomprensibles',
+          'Palabras inapropiadas',
+          'Confusa',
+          'Orientada'
+        ];
         currentValue = param.value ?? 5;
         break;
       case 'motorResponse':
         label = 'Respuesta motora';
-        options = ['No responde', 'Extensión al dolor', 'Flexión al dolor', 'Retirada al dolor', 'Localiza el dolor', 'Obedece órdenes'];
+        options = [
+          'No responde',
+          'Extensión al dolor',
+          'Flexión al dolor',
+          'Retirada al dolor',
+          'Localiza el dolor',
+          'Obedece órdenes'
+        ];
         currentValue = param.value ?? 6;
         break;
       default:
@@ -330,7 +366,7 @@ class CalculatorDetailPage extends ConsumerWidget {
     }
 
     final intValue = currentValue.toInt().clamp(1, options.length);
-    final scoreLabel = '${intValue}/${options.length}';
+    final scoreLabel = '$intValue/${options.length}';
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimensions.sm),
@@ -369,7 +405,7 @@ class CalculatorDetailPage extends ConsumerWidget {
           ),
           const SizedBox(height: AppDimensions.sm),
           DropdownButtonFormField<int>(
-            value: intValue,
+            initialValue: intValue,
             dropdownColor: AppColors.bgCard,
             decoration: const InputDecoration(
               isDense: true,
@@ -386,7 +422,8 @@ class CalculatorDetailPage extends ConsumerWidget {
                 value: i + 1,
                 child: Text(
                   '${i + 1}: ${options[i]}',
-                  style: const TextStyle(color: AppColors.textPrimary, fontSize: 13),
+                  style: const TextStyle(
+                      color: AppColors.textPrimary, fontSize: 13),
                 ),
               );
             }),
@@ -433,7 +470,7 @@ class CalculatorDetailPage extends ConsumerWidget {
           ),
           const SizedBox(height: 4),
           DropdownButtonFormField<int>(
-            value: currentValue,
+            initialValue: currentValue,
             dropdownColor: AppColors.bgCard,
             decoration: const InputDecoration(
               isDense: true,
@@ -449,7 +486,8 @@ class CalculatorDetailPage extends ConsumerWidget {
                 value: i + 1,
                 child: Text(
                   '${i + 1}: ${options[i]}',
-                  style: const TextStyle(color: AppColors.textPrimary, fontSize: 12),
+                  style: const TextStyle(
+                      color: AppColors.textPrimary, fontSize: 12),
                 ),
               );
             }),
@@ -487,7 +525,7 @@ class CalculatorDetailPage extends ConsumerWidget {
           ),
           const SizedBox(height: 4),
           DropdownButtonFormField<int>(
-            value: currentValue,
+            initialValue: currentValue,
             dropdownColor: AppColors.bgCard,
             decoration: const InputDecoration(
               isDense: true,
@@ -504,7 +542,8 @@ class CalculatorDetailPage extends ConsumerWidget {
                 value: score,
                 child: Text(
                   '$score/15',
-                  style: const TextStyle(color: AppColors.textPrimary, fontSize: 12),
+                  style: const TextStyle(
+                      color: AppColors.textPrimary, fontSize: 12),
                 ),
               );
             }),
@@ -560,7 +599,8 @@ class CalculatorDetailPage extends ConsumerWidget {
           ),
           const SizedBox(height: 4),
           TextField(
-            keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
+            keyboardType: const TextInputType.numberWithOptions(
+                decimal: true, signed: true),
             style: const TextStyle(
               color: AppColors.textPrimary,
               fontFamily: 'IBMPlexSans',
@@ -568,8 +608,10 @@ class CalculatorDetailPage extends ConsumerWidget {
             ),
             decoration: InputDecoration(
               isDense: true,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              hintText: 'Ingrese valor${param.unit.isNotEmpty ? ' (${param.unit})' : ''}',
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              hintText:
+                  'Ingrese valor${param.unit.isNotEmpty ? ' (${param.unit})' : ''}',
               hintStyle: const TextStyle(color: AppColors.textDisabled),
             ),
             onChanged: (value) {
@@ -615,10 +657,11 @@ class CalculatorDetailPage extends ConsumerWidget {
     ];
 
     final currentValue = state.parameters
-        .firstWhere((p) => p.name == 'vasopressorName')
-        .value
-        ?.toInt()
-        .clamp(0, vasopressors.length - 1) ?? 0;
+            .firstWhere((p) => p.name == 'vasopressorName')
+            .value
+            ?.toInt()
+            .clamp(0, vasopressors.length - 1) ??
+        0;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimensions.sm),
@@ -636,7 +679,7 @@ class CalculatorDetailPage extends ConsumerWidget {
           ),
           const SizedBox(height: 4),
           DropdownButtonFormField<int>(
-            value: currentValue,
+            initialValue: currentValue,
             dropdownColor: AppColors.bgCard,
             decoration: const InputDecoration(
               isDense: true,
@@ -646,7 +689,8 @@ class CalculatorDetailPage extends ConsumerWidget {
               return DropdownMenuItem(
                 value: i,
                 child: Text(
-                  vasopressors[i][0].toUpperCase() + vasopressors[i].substring(1),
+                  vasopressors[i][0].toUpperCase() +
+                      vasopressors[i].substring(1),
                   style: const TextStyle(color: AppColors.textPrimary),
                 ),
               );
@@ -668,16 +712,24 @@ class CalculatorDetailPage extends ConsumerWidget {
     CalculatorNotifier notifier,
   ) {
     final medications = [
-      'paracetamol', 'ibuprofeno', 'morfina', 'tramadol',
-      'amoxicilina', 'omeprazol', 'enoxaparina', 'metformina',
-      'furosemida', 'haloperidol',
+      'paracetamol',
+      'ibuprofeno',
+      'morfina',
+      'tramadol',
+      'amoxicilina',
+      'omeprazol',
+      'enoxaparina',
+      'metformina',
+      'furosemida',
+      'haloperidol',
     ];
 
     final currentValue = state.parameters
-        .firstWhere((p) => p.name == 'medication')
-        .value
-        ?.toInt()
-        .clamp(0, medications.length - 1) ?? 0;
+            .firstWhere((p) => p.name == 'medication')
+            .value
+            ?.toInt()
+            .clamp(0, medications.length - 1) ??
+        0;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimensions.sm),
@@ -695,7 +747,7 @@ class CalculatorDetailPage extends ConsumerWidget {
           ),
           const SizedBox(height: 4),
           DropdownButtonFormField<int>(
-            value: currentValue,
+            initialValue: currentValue,
             dropdownColor: AppColors.bgCard,
             decoration: const InputDecoration(
               isDense: true,
@@ -727,10 +779,11 @@ class CalculatorDetailPage extends ConsumerWidget {
     CalculatorNotifier notifier,
   ) {
     final currentValue = state.parameters
-        .firstWhere((p) => p.name == 'doseType')
-        .value
-        ?.toInt()
-        .clamp(0, 1) ?? 0;
+            .firstWhere((p) => p.name == 'doseType')
+            .value
+            ?.toInt()
+            .clamp(0, 1) ??
+        0;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimensions.sm),
@@ -748,15 +801,21 @@ class CalculatorDetailPage extends ConsumerWidget {
           ),
           const SizedBox(height: 4),
           DropdownButtonFormField<int>(
-            value: currentValue,
+            initialValue: currentValue,
             dropdownColor: AppColors.bgCard,
             decoration: const InputDecoration(
               isDense: true,
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             ),
             items: const [
-              DropdownMenuItem(value: 0, child: Text('Dosis única', style: TextStyle(color: AppColors.textPrimary))),
-              DropdownMenuItem(value: 1, child: Text('Dosis diaria', style: TextStyle(color: AppColors.textPrimary))),
+              DropdownMenuItem(
+                  value: 0,
+                  child: Text('Dosis única',
+                      style: TextStyle(color: AppColors.textPrimary))),
+              DropdownMenuItem(
+                  value: 1,
+                  child: Text('Dosis diaria',
+                      style: TextStyle(color: AppColors.textPrimary))),
             ],
             onChanged: (value) {
               if (value != null) {
@@ -783,7 +842,8 @@ class CalculatorDetailPage extends ConsumerWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.error_outline, color: AppColors.alertRed, size: 20),
+            const Icon(Icons.error_outline,
+                color: AppColors.alertRed, size: 20),
             const SizedBox(width: 10),
             Expanded(
               child: Text(

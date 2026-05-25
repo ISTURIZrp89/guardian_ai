@@ -39,8 +39,8 @@ class StatusBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: padding ??
-          const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding:
+          padding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
         color: _bgColor,
         borderRadius: BorderRadius.circular(6),

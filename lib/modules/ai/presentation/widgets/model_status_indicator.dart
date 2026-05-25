@@ -28,7 +28,7 @@ class ModelStatusIndicator extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppDimensions.cardRadiusSmall),
         border: Border.all(
           color: isLoaded
-              ? AppColors.monitorGreen.withOpacity(0.3)
+              ? AppColors.monitorGreen.withValues(alpha: 0.3)
               : AppColors.borderDefault,
         ),
       ),
@@ -43,13 +43,12 @@ class ModelStatusIndicator extends StatelessWidget {
                 height: 10,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: isLoaded
-                      ? AppColors.monitorGreen
-                      : AppColors.alertRed,
+                  color: isLoaded ? AppColors.monitorGreen : AppColors.alertRed,
                   boxShadow: isLoaded
                       ? [
                           BoxShadow(
-                            color: AppColors.monitorGreen.withOpacity(0.5),
+                            color:
+                                AppColors.monitorGreen.withValues(alpha: 0.5),
                             blurRadius: 6,
                             spreadRadius: 1,
                           ),
@@ -60,9 +59,7 @@ class ModelStatusIndicator extends StatelessWidget {
               const SizedBox(width: AppDimensions.sm),
               Expanded(
                 child: Text(
-                  isLoaded
-                      ? 'Modelo cargado'
-                      : 'Sin modelo activo',
+                  isLoaded ? 'Modelo cargado' : 'Sin modelo activo',
                   style: TextStyle(
                     color: isLoaded
                         ? AppColors.monitorGreen
@@ -85,7 +82,7 @@ class ModelStatusIndicator extends StatelessWidget {
             ),
             Text(
               model!.formattedSize,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.textDisabled,
                 fontSize: AppDimensions.fontSizeXs,
               ),
@@ -105,7 +102,7 @@ class ModelStatusIndicator extends StatelessWidget {
   }
 
   Widget _buildMemoryBar() {
-    final maxMemory = 4096.0;
+    const maxMemory = 4096.0;
     final percentage = (memoryUsage / maxMemory).clamp(0.0, 1.0);
     final isHigh = percentage > 0.8;
 
@@ -115,7 +112,7 @@ class ModelStatusIndicator extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Memoria',
               style: TextStyle(
                 color: AppColors.textDisabled,
@@ -125,7 +122,8 @@ class ModelStatusIndicator extends StatelessWidget {
             Text(
               '${memoryUsage.toStringAsFixed(0)} MB / ${maxMemory.toStringAsFixed(0)} MB',
               style: TextStyle(
-                color: isHigh ? AppColors.statusWarning : AppColors.textSecondary,
+                color:
+                    isHigh ? AppColors.statusWarning : AppColors.textSecondary,
                 fontSize: AppDimensions.fontSizeXs,
               ),
             ),
@@ -138,9 +136,7 @@ class ModelStatusIndicator extends StatelessWidget {
             value: percentage,
             backgroundColor: AppColors.bgInput,
             valueColor: AlwaysStoppedAnimation<Color>(
-              isHigh
-                  ? AppColors.statusWarning
-                  : AppColors.monitorGreen,
+              isHigh ? AppColors.statusWarning : AppColors.monitorGreen,
             ),
             minHeight: 4,
           ),
@@ -156,7 +152,7 @@ class ModelStatusIndicator extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Descargando...',
               style: TextStyle(
                 color: AppColors.textClinical,
@@ -165,7 +161,7 @@ class ModelStatusIndicator extends StatelessWidget {
             ),
             Text(
               '${(downloadProgress * 100).toStringAsFixed(0)}%',
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.textSecondary,
                 fontSize: AppDimensions.fontSizeXs,
               ),

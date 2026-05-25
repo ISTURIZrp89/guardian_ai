@@ -51,8 +51,7 @@ class NandaDatabase {
     NandaDiagnosis(
       code: '00003',
       label: 'Riesgo de infección',
-      definition:
-          'Vulnerabilidad a ser invadido por organismos patógenos',
+      definition: 'Vulnerabilidad a ser invadido por organismos patógenos',
       relatedFactors: [
         'Procedimientos invasivos',
         'Defensas primarias inadecuadas',
@@ -67,8 +66,7 @@ class NandaDatabase {
     NandaDiagnosis(
       code: '00004',
       label: 'Deterioro de la integridad cutánea',
-      definition:
-          'Alteración de la epidermis y/o dermis',
+      definition: 'Alteración de la epidermis y/o dermis',
       relatedFactors: [
         'Inmovilización física',
         'Humedad',
@@ -93,7 +91,10 @@ class NandaDatabase {
         'Piel seca',
         'Sed',
       ],
-      nicInterventions: ['Manejo de líquidos', 'Monitorización de signos vitales'],
+      nicInterventions: [
+        'Manejo de líquidos',
+        'Monitorización de signos vitales'
+      ],
       nocOutcomes: ['Equilibrio hídrico', 'Estado de hidratación'],
     ),
     NandaDiagnosis(

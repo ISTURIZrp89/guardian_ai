@@ -91,7 +91,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       shaderCallback: (bounds) => AppColors.clinicalGradient.createShader(
         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
       ),
-      child: Text(
+      child: const Text(
         'Guardian AI',
         style: TextStyle(
           fontFamily: 'SFPro',
@@ -106,7 +106,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   Widget _buildSubtitle() {
-    return Text(
+    return const Text(
       'Asistente Clínico Inteligente',
       style: TextStyle(
         fontFamily: 'IBMPlexSans',
@@ -185,7 +185,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   Widget _buildTerms() {
-    return Text(
+    return const Text(
       'Al iniciar sesión acepta los términos y condiciones',
       style: TextStyle(
         fontFamily: 'IBMPlexSans',
@@ -200,7 +200,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget _buildSkipButton() {
     return TextButton(
       onPressed: _isLoading ? null : _skipLogin,
-      child: Text(
+      child: const Text(
         'Omitir por ahora',
         style: TextStyle(
           fontFamily: 'SFPro',

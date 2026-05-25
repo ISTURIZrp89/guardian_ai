@@ -8,7 +8,8 @@ class CalculateBodySurfaceUseCase {
     required double heightCm,
     required double weightKg,
   }) {
-    if (weightKg < AppConstants.minWeightKg || weightKg > AppConstants.maxWeightKg) {
+    if (weightKg < AppConstants.minWeightKg ||
+        weightKg > AppConstants.maxWeightKg) {
       throw ValidationException(
         'El peso debe estar entre ${AppConstants.minWeightKg} y ${AppConstants.maxWeightKg} kg',
         code: 'INVALID_WEIGHT',

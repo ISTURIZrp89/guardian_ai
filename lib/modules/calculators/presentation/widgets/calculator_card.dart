@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:guardian_ai/core/constants/app_colors.dart';
-import 'package:guardian_ai/core/constants/app_dimensions.dart';
 import 'package:guardian_ai/modules/calculators/domain/entities/clinical_formula.dart';
 
 class CalculatorCard extends StatefulWidget {
@@ -39,7 +38,9 @@ class _CalculatorCardState extends State<CalculatorCard> {
             color: _isPressed ? AppColors.bgCardHover : AppColors.bgCard,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: _isPressed ? AppColors.borderFocused : AppColors.borderDefault,
+              color: _isPressed
+                  ? AppColors.borderFocused
+                  : AppColors.borderDefault,
               width: _isPressed ? 1.5 : 1,
             ),
           ),
@@ -94,7 +95,8 @@ class _CalculatorCardState extends State<CalculatorCard> {
                 ),
                 const SizedBox(height: 4),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: AppColors.monitorGreen.withAlpha(25),
                     borderRadius: BorderRadius.circular(4),

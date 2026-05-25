@@ -4,8 +4,7 @@ final class DateUtils {
   DateUtils._();
 
   static final DateFormat _displayFormat = DateFormat('dd/MM/yyyy HH:mm');
-  static final DateFormat _storageFormat =
-      DateFormat("yyyy-MM-dd'T'HH:mm:ss");
+  static final DateFormat _storageFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
   static final DateFormat _clinicalDateFormat = DateFormat('dd/MMM/yyyy');
   static final DateFormat _timeFormat = DateFormat('HH:mm');
   static final DateFormat _dayMonthFormat = DateFormat('dd MMM');

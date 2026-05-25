@@ -19,11 +19,13 @@ class CalculateDripRateUseCase {
 
     if (rounded > 60) {
       isWarning = true;
-      description = 'Goteo rápido (> 60 gotas/min). Verificar tolerancia del paciente '
+      description =
+          'Goteo rápido (> 60 gotas/min). Verificar tolerancia del paciente '
           'y considerar usar bomba de infusión.';
     } else if (rounded < 5) {
       isWarning = true;
-      description = 'Goteo muy lento (< 5 gotas/min). Riesgo de obstrucción del acceso venoso.';
+      description =
+          'Goteo muy lento (< 5 gotas/min). Riesgo de obstrucción del acceso venoso.';
     } else {
       description = 'Velocidad de goteo dentro de rangos normales.';
     }

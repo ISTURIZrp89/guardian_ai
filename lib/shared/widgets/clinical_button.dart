@@ -93,12 +93,14 @@ class _ClinicalButtonState extends State<ClinicalButton> {
             ),
             transform: _pressed ? Matrix4.translationValues(0, 1, 0) : null,
             child: Padding(
-              padding: widget.padding ??
-                  const EdgeInsets.symmetric(horizontal: 24),
+              padding:
+                  widget.padding ?? const EdgeInsets.symmetric(horizontal: 24),
               child: widget.loading
                   ? _buildShimmer(effectiveFg)
                   : Row(
-                      mainAxisSize: widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
+                      mainAxisSize: widget.fullWidth
+                          ? MainAxisSize.max
+                          : MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (widget.icon != null) ...[

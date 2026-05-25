@@ -100,7 +100,8 @@ void main() {
       expect(result.isCritical, true);
     });
 
-    test('marca isWarning para balance negativo significativo (< -1500 mL)', () {
+    test('marca isWarning para balance negativo significativo (< -1500 mL)',
+        () {
       final result = useCase.execute(
         totalInput: 500,
         totalOutput: 2500,

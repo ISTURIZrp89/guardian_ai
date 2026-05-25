@@ -10,7 +10,6 @@ class AuthLocalDataSource {
   static const _keyFirstTimeCompleted = 'guardian_auth_first_time_completed';
 
   static const _maxAttempts = 5;
-  static const _lockoutMinutes = 15;
 
   final FlutterSecureStorage _secureStorage;
   final LocalAuthentication _localAuth;

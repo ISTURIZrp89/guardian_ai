@@ -38,15 +38,19 @@ class CalculatePediatricDoseUseCase {
 
     if (maxPediatricDose != null && roundedDose > maxPediatricDose) {
       isCritical = true;
-      description = '¡ATENCIÓN! La dosis pediátrica calculada (${roundedDose.toStringAsFixed(2)} mg) '
+      description =
+          '¡ATENCIÓN! La dosis pediátrica calculada (${roundedDose.toStringAsFixed(2)} mg) '
           'supera la dosis máxima pediátrica recomendada de ${maxPediatricDose.toStringAsFixed(2)} mg. '
           'Verificar inmediatamente con el servicio de farmacia.';
-    } else if (maxPediatricDose != null && roundedDose > maxPediatricDose * 0.9) {
+    } else if (maxPediatricDose != null &&
+        roundedDose > maxPediatricDose * 0.9) {
       isWarning = true;
-      description = 'La dosis pediátrica calculada está cerca del límite máximo. '
+      description =
+          'La dosis pediátrica calculada está cerca del límite máximo. '
           'Monitorear posibles efectos adversos.';
     } else {
-      description = 'Dosis pediátrica calculada según Regla de Clark dentro de rangos seguros.';
+      description =
+          'Dosis pediátrica calculada según Regla de Clark dentro de rangos seguros.';
     }
 
     return CalculationResult(

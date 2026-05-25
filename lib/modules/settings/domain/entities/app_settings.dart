@@ -46,26 +46,26 @@ class AppSettings {
   }
 
   Map<String, dynamic> toMap() => {
-    'biometricEnabled': biometricEnabled ? 1 : 0,
-    'autoLockMinutes': autoLockMinutes,
-    'screenCaptureBlocked': screenCaptureBlocked ? 1 : 0,
-    'aiEnabled': aiEnabled ? 1 : 0,
-    'aiModel': aiModel,
-    'aiContextSize': aiContextSize,
-    'aiTemperature': aiTemperature,
-    'batterySaverMode': batterySaverMode ? 1 : 0,
-    'exportFormat': exportFormat,
-  };
+        'biometricEnabled': biometricEnabled ? 1 : 0,
+        'autoLockMinutes': autoLockMinutes,
+        'screenCaptureBlocked': screenCaptureBlocked ? 1 : 0,
+        'aiEnabled': aiEnabled ? 1 : 0,
+        'aiModel': aiModel,
+        'aiContextSize': aiContextSize,
+        'aiTemperature': aiTemperature,
+        'batterySaverMode': batterySaverMode ? 1 : 0,
+        'exportFormat': exportFormat,
+      };
 
   factory AppSettings.fromMap(Map<String, dynamic> map) => AppSettings(
-    biometricEnabled: (map['biometricEnabled'] as int? ?? 0) == 1,
-    autoLockMinutes: map['autoLockMinutes'] as int? ?? 5,
-    screenCaptureBlocked: (map['screenCaptureBlocked'] as int? ?? 0) == 1,
-    aiEnabled: (map['aiEnabled'] as int? ?? 1) == 1,
-    aiModel: map['aiModel'] as String? ?? 'biomistral-7b-q4',
-    aiContextSize: map['aiContextSize'] as int? ?? 2048,
-    aiTemperature: (map['aiTemperature'] as num?)?.toDouble() ?? 0.7,
-    batterySaverMode: (map['batterySaverMode'] as int? ?? 0) == 1,
-    exportFormat: map['exportFormat'] as String? ?? 'pdf',
-  );
+        biometricEnabled: (map['biometricEnabled'] as int? ?? 0) == 1,
+        autoLockMinutes: map['autoLockMinutes'] as int? ?? 5,
+        screenCaptureBlocked: (map['screenCaptureBlocked'] as int? ?? 0) == 1,
+        aiEnabled: (map['aiEnabled'] as int? ?? 1) == 1,
+        aiModel: map['aiModel'] as String? ?? 'biomistral-7b-q4',
+        aiContextSize: map['aiContextSize'] as int? ?? 2048,
+        aiTemperature: (map['aiTemperature'] as num?)?.toDouble() ?? 0.7,
+        batterySaverMode: (map['batterySaverMode'] as int? ?? 0) == 1,
+        exportFormat: map['exportFormat'] as String? ?? 'pdf',
+      );
 }

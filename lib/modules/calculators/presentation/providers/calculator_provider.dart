@@ -10,8 +10,8 @@ final calculatorRepositoryProvider = Provider<CalculatorRepository>((ref) {
   return CalculatorRepositoryImpl();
 });
 
-final calculatorProvider =
-    StateNotifierProvider.family<CalculatorNotifier, CalculatorState, ClinicalFormulaType>(
+final calculatorProvider = StateNotifierProvider.family<CalculatorNotifier,
+    CalculatorState, ClinicalFormulaType>(
   (ref, formulaType) {
     final repository = ref.watch(calculatorRepositoryProvider);
     return CalculatorNotifier(repository, formulaType);
@@ -61,7 +61,8 @@ class CalculatorNotifier extends StateNotifier<CalculatorState> {
           parameters: _getDefaultParameters(formulaType),
         ));
 
-  static List<FormulaParameterModel> _getDefaultParameters(ClinicalFormulaType type) {
+  static List<FormulaParameterModel> _getDefaultParameters(
+      ClinicalFormulaType type) {
     switch (type) {
       case ClinicalFormulaType.mgKgDose:
         return [
@@ -646,7 +647,8 @@ class CalculatorNotifier extends StateNotifier<CalculatorState> {
         updated.add(param);
       }
     }
-    state = state.copyWith(parameters: updated, clearResult: true, clearError: true);
+    state = state.copyWith(
+        parameters: updated, clearResult: true, clearError: true);
   }
 
   void calculate() {
@@ -663,7 +665,8 @@ class CalculatorNotifier extends StateNotifier<CalculatorState> {
       return;
     }
 
-    state = state.copyWith(isLoading: true, clearError: true, clearResult: true);
+    state =
+        state.copyWith(isLoading: true, clearError: true, clearResult: true);
 
     try {
       final params = <String, double>{};

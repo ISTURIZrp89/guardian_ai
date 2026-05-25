@@ -12,11 +12,13 @@ class LoadAiModel {
       final models = await _repository.getAvailableModels();
       final model = models.where((m) => m.id == modelId).firstOrNull;
       if (model == null) {
-        throw AiFailure('Modelo no encontrado: $modelId', code: 'MODEL_NOT_FOUND');
+        throw AiFailure('Modelo no encontrado: $modelId',
+            code: 'MODEL_NOT_FOUND');
       }
       final success = await _repository.loadModel(modelId);
       if (!success) {
-        throw AiFailure('No se pudo cargar el modelo $modelId', code: 'LOAD_FAILED');
+        throw AiFailure('No se pudo cargar el modelo $modelId',
+            code: 'LOAD_FAILED');
       }
       return model.copyWith(isLoaded: true);
     } on AiFailure {

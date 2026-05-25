@@ -124,8 +124,7 @@ class VitalSignsModel {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is VitalSignsModel && id == other.id;
+      identical(this, other) || other is VitalSignsModel && id == other.id;
 
   @override
   int get hashCode => id.hashCode;

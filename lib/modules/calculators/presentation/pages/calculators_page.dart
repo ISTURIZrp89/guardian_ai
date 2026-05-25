@@ -58,7 +58,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
           ),
           IconButton(
             icon: const Icon(Icons.info_outline),
-            onPressed: () => context.showAppDialog(
+            onPressed: () => context.showAppDialog<void>(
               title: 'Calculadoras Guardian',
               content: const Text(
                 'Herramientas de cálculo clínico para apoyo en la toma de decisiones. '
@@ -106,7 +106,8 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
           ),
           decoration: const InputDecoration(
             hintText: 'Buscar calculadora...',
-            prefixIcon: Icon(Icons.search, size: 18, color: AppColors.textDisabled),
+            prefixIcon:
+                Icon(Icons.search, size: 18, color: AppColors.textDisabled),
             border: InputBorder.none,
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
@@ -122,7 +123,8 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.search_off, size: 64, color: AppColors.textDisabled.withAlpha(100)),
+          Icon(Icons.search_off,
+              size: 64, color: AppColors.textDisabled.withAlpha(100)),
           const SizedBox(height: AppDimensions.md),
           const Text(
             'Sin resultados',
@@ -156,7 +158,8 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     );
   }
 
-  Widget _buildCategorySection(String category, List<ClinicalFormulaType> formulas) {
+  Widget _buildCategorySection(
+      String category, List<ClinicalFormulaType> formulas) {
     final categoryIcons = {
       'Dosis': Icons.medication,
       'Infusión': Icons.phishing,

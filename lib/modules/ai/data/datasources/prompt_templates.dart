@@ -1,7 +1,8 @@
 class PromptTemplates {
   PromptTemplates._();
 
-  static const String _safetyGuardrail = '\n\n[SEGURIDAD] Esta información es solo '
+  static const String _safetyGuardrail =
+      '\n\n[SEGURIDAD] Esta información es solo '
       'para referencia clínica. No reemplaza el juicio profesional. '
       'En emergencias, active el código de emergencia correspondiente.\n';
 

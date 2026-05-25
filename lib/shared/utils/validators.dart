@@ -97,7 +97,8 @@ class Validators {
     return null;
   }
 
-  static String? validateRequired(String? value, [String fieldName = 'Este campo']) {
+  static String? validateRequired(String? value,
+      [String fieldName = 'Este campo']) {
     if (value == null || value.trim().isEmpty) {
       return '$fieldName es requerido';
     }

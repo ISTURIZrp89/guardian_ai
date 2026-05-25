@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_dimensions.dart';
-import '../../core/extensions/context_extensions.dart';
 
 class ClinicalInput extends StatefulWidget {
   final String? label;

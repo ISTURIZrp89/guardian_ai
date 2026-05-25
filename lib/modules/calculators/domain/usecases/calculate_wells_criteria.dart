@@ -22,26 +22,25 @@ class CalculateWellsCriteriaUseCase {
 
     final roundedScore = (score * 10).roundToDouble() / 10;
 
-    String classification;
     String description;
     bool isWarning = false;
     bool isCritical = false;
 
     if (roundedScore > 6) {
       isCritical = true;
-      classification = 'Alta probabilidad';
-      description = 'Criterios de Wells: $roundedScore — Alta probabilidad de TEP. '
+      description =
+          'Criterios de Wells: $roundedScore — Alta probabilidad de TEP. '
           'Solicitar angio-TC de tórax o gammagrafía V/Q. '
           'Iniciar anticoagulación si hay sospecha clínica alta.';
     } else if (roundedScore >= 2) {
       isWarning = true;
-      classification = 'Probabilidad moderada';
-      description = 'Criterios de Wells: $roundedScore — Probabilidad moderada de TEP. '
+      description =
+          'Criterios de Wells: $roundedScore — Probabilidad moderada de TEP. '
           'Solicitar dímero D. Si es positivo, angio-TC de tórax. '
           'Considerar anticoagulación según riesgo.';
     } else {
-      classification = 'Baja probabilidad';
-      description = 'Criterios de Wells: $roundedScore — Baja probabilidad de TEP. '
+      description =
+          'Criterios de Wells: $roundedScore — Baja probabilidad de TEP. '
           'Solicitar dímero D. Si es negativo (> 95% VPN), descartar TEP. '
           'Evaluar diagnósticos alternativos.';
     }
@@ -55,9 +54,11 @@ class CalculateWellsCriteriaUseCase {
       isCritical: isCritical,
       details: {
         'Signos clínicos de TVP (3 pts)': hasClinicalSignsDvt ? 3.0 : 0.0,
-        'Diagnóstico alternativo (-3 pts)': hasAlternativeDiagnosis ? -3.0 : 0.0,
+        'Diagnóstico alternativo (-3 pts)':
+            hasAlternativeDiagnosis ? -3.0 : 0.0,
         'FC > 100 lpm (1.5 pts)': heartRateOver100 ? 1.5 : 0.0,
-        'Inmovilización/cirugía (1.5 pts)': hasImmobilizationOrSurgery ? 1.5 : 0.0,
+        'Inmovilización/cirugía (1.5 pts)':
+            hasImmobilizationOrSurgery ? 1.5 : 0.0,
         'TVP/TEP previo (1.5 pts)': hasPreviousDvtOrPe ? 1.5 : 0.0,
         'Hemoptisis (1 pt)': hasHemoptysis ? 1.0 : 0.0,
         'Neoplasia activa (1 pt)': hasMalignancy ? 1.0 : 0.0,

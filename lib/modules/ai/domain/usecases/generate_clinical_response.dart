@@ -19,11 +19,13 @@ class GenerateClinicalResponse {
     } on AiFailure {
       rethrow;
     } catch (e) {
-      throw AiFailure('Error al generar respuesta: $e', code: 'GENERATION_ERROR');
+      throw AiFailure('Error al generar respuesta: $e',
+          code: 'GENERATION_ERROR');
     }
   }
 
-  String _buildPrompt(String message, ClinicalContext? context, String systemPrompt) {
+  String _buildPrompt(
+      String message, ClinicalContext? context, String systemPrompt) {
     final buffer = StringBuffer();
 
     buffer.writeln('[SISTEMA] Eres un asistente clínico de enfermería. '

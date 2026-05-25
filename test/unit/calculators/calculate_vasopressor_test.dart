@@ -23,7 +23,8 @@ void main() {
       expect(result.isCritical, false);
     });
 
-    test('calcula infusión de noradrenalina con concentración personalizada', () {
+    test('calcula infusión de noradrenalina con concentración personalizada',
+        () {
       final result = useCase.execute(
         vasopressorName: 'noradrenalina',
         weight: 70,
@@ -68,7 +69,8 @@ void main() {
       );
     });
 
-    test('marca isCritical cuando dosis supera el rango terapéutico máximo', () {
+    test('marca isCritical cuando dosis supera el rango terapéutico máximo',
+        () {
       final result = useCase.execute(
         vasopressorName: 'noradrenalina',
         weight: 70,
@@ -78,7 +80,8 @@ void main() {
       expect(result.isCritical, true);
     });
 
-    test('marca isWarning cuando dosis está por debajo del rango terapéutico', () {
+    test('marca isWarning cuando dosis está por debajo del rango terapéutico',
+        () {
       final result = useCase.execute(
         vasopressorName: 'noradrenalina',
         weight: 70,

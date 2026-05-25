@@ -5,5 +5,6 @@ class UpdateSettings {
   final SettingsRepository _repository;
   UpdateSettings(this._repository);
 
-  Future<void> call(AppSettings settings) => _repository.updateSettings(settings);
+  Future<void> call(AppSettings settings) =>
+      _repository.updateSettings(settings);
 }

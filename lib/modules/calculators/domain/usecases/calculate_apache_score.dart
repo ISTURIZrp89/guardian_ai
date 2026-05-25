@@ -77,8 +77,14 @@ class CalculateApacheScoreUseCase {
     final wbcScore = _scoreWbc(wbc);
     final gcsScore = _scoreGcs(glasgowComaScore);
 
-    final totalScore = ageScore + hrScore + mapScore + tempScore +
-        creatScore + hctScore + wbcScore + gcsScore;
+    final totalScore = ageScore +
+        hrScore +
+        mapScore +
+        tempScore +
+        creatScore +
+        hctScore +
+        wbcScore +
+        gcsScore;
 
     String description;
     bool isWarning = false;

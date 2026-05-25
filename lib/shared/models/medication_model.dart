@@ -123,8 +123,7 @@ class MedicationModel {
           : null,
       prescribedBy: json['prescribed_by'] as String,
       notes: json['notes'] as String?,
-      status:
-          MedicationStatus.fromJson(json['status'] as String? ?? 'active'),
+      status: MedicationStatus.fromJson(json['status'] as String? ?? 'active'),
     );
   }
 
@@ -160,8 +159,7 @@ class MedicationModel {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MedicationModel && id == other.id;
+      identical(this, other) || other is MedicationModel && id == other.id;
 
   @override
   int get hashCode => id.hashCode;

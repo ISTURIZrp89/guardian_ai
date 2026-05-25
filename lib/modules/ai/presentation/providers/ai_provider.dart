@@ -250,13 +250,12 @@ class AiNotifier extends StateNotifier<AiState> {
     state = state.copyWith(isLoading: true, downloadProgress: 0.0);
     try {
       _downloadSubscription?.cancel();
-      _downloadSubscription = _repository
-          .getDownloadProgress(modelId)
-          .listen((progress) {
+      _downloadSubscription =
+          _repository.getDownloadProgress(modelId).listen((progress) {
         state = state.copyWith(downloadProgress: progress);
       });
       await _repository.downloadModel(modelId);
-      await Future.delayed(const Duration(seconds: 1));
+      await Future<void>.delayed(const Duration(seconds: 1));
       state = state.copyWith(isLoading: false, downloadProgress: 1.0);
     } on Failure catch (e) {
       state = state.copyWith(isLoading: false, error: e.message);

@@ -70,8 +70,8 @@ class _PinSetupPageState extends ConsumerState<PinSetupPage> {
               if (_errorMessage != null) _buildError(_errorMessage!),
               const Spacer(flex: 1),
               if (authState.isLoading)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 16),
                   child: SizedBox(
                     width: 24,
                     height: 24,
@@ -115,7 +115,7 @@ class _PinSetupPageState extends ConsumerState<PinSetupPage> {
           ),
         ),
         16.gapH,
-        Text(
+        const Text(
           'Configurar PIN de Seguridad',
           style: TextStyle(
             fontFamily: 'SFPro',
@@ -131,7 +131,7 @@ class _PinSetupPageState extends ConsumerState<PinSetupPage> {
   }
 
   Widget _buildDescription() {
-    return Text(
+    return const Text(
       'Establezca un PIN de 6 dígitos para proteger el acceso a la información clínica de los pacientes.',
       style: TextStyle(
         fontFamily: 'IBMPlexSans',
@@ -153,9 +153,8 @@ class _PinSetupPageState extends ConsumerState<PinSetupPage> {
         Container(
           width: 32,
           height: 1,
-          color: _isConfirming
-              ? AppColors.clinicalBlue
-              : AppColors.borderDefault,
+          color:
+              _isConfirming ? AppColors.clinicalBlue : AppColors.borderDefault,
         ),
         8.gapW,
         _stepDot(1),
@@ -164,8 +163,8 @@ class _PinSetupPageState extends ConsumerState<PinSetupPage> {
   }
 
   Widget _stepDot(int index) {
-    final isActive = (index == 0 && !_isConfirming) ||
-        (index == 1 && _isConfirming);
+    final isActive =
+        (index == 0 && !_isConfirming) || (index == 1 && _isConfirming);
     return Container(
       width: 12,
       height: 12,
@@ -173,9 +172,7 @@ class _PinSetupPageState extends ConsumerState<PinSetupPage> {
         shape: BoxShape.circle,
         color: isActive ? AppColors.clinicalBlue : AppColors.bgCardHover,
         border: Border.all(
-          color: isActive
-              ? AppColors.clinicalBlue
-              : AppColors.borderDefault,
+          color: isActive ? AppColors.clinicalBlue : AppColors.borderDefault,
           width: 1,
         ),
       ),
@@ -185,7 +182,7 @@ class _PinSetupPageState extends ConsumerState<PinSetupPage> {
   Widget _buildError(String message) {
     return Text(
       message,
-      style: TextStyle(
+      style: const TextStyle(
         fontFamily: 'SFPro',
         fontSize: AppDimensions.fontSizeXs,
         color: AppColors.alertRed,
@@ -225,8 +222,8 @@ class _PinSetupPageState extends ConsumerState<PinSetupPage> {
   void _handleConfirmInput(String key) {
     if (key == 'delete') {
       if (_confirmController.text.isNotEmpty) {
-        _confirmController.text =
-            _confirmController.text.substring(0, _confirmController.text.length - 1);
+        _confirmController.text = _confirmController.text
+            .substring(0, _confirmController.text.length - 1);
       } else {
         setState(() {
           _isConfirming = false;
@@ -255,9 +252,8 @@ class _PinSetupPageState extends ConsumerState<PinSetupPage> {
       return;
     }
 
-    final success = await ref
-        .read(authProvider.notifier)
-        .setupPin(_pinController.text);
+    final success =
+        await ref.read(authProvider.notifier).setupPin(_pinController.text);
 
     if (success && mounted) {
       context.go('/ai');

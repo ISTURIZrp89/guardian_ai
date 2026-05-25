@@ -19,7 +19,6 @@ class UnlockPage extends ConsumerStatefulWidget {
 class _UnlockPageState extends ConsumerState<UnlockPage>
     with TickerProviderStateMixin {
   final _pinController = TextEditingController();
-  bool _obscurePin = true;
   Timer? _lockTimer;
 
   @override
@@ -97,7 +96,7 @@ class _UnlockPageState extends ConsumerState<UnlockPage>
   }
 
   Widget _buildTitle() {
-    return Text(
+    return const Text(
       'Guardian AI',
       style: TextStyle(
         fontFamily: 'SFPro',
@@ -110,7 +109,7 @@ class _UnlockPageState extends ConsumerState<UnlockPage>
   }
 
   Widget _buildSubtitle() {
-    return Text(
+    return const Text(
       'Desbloqueo Seguro',
       style: TextStyle(
         fontFamily: 'IBMPlexSans',
@@ -126,7 +125,7 @@ class _UnlockPageState extends ConsumerState<UnlockPage>
       padding: const EdgeInsets.only(top: 8),
       child: Text(
         message,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'SFPro',
           fontSize: AppDimensions.fontSizeXs,
           color: AppColors.alertRed,
@@ -146,7 +145,7 @@ class _UnlockPageState extends ConsumerState<UnlockPage>
       padding: const EdgeInsets.only(top: 8),
       child: Column(
         children: [
-          Text(
+          const Text(
             'Cuenta bloqueada temporalmente',
             style: TextStyle(
               fontFamily: 'SFPro',
@@ -158,7 +157,7 @@ class _UnlockPageState extends ConsumerState<UnlockPage>
           4.gapH,
           Text(
             '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}',
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'SFPro',
               fontSize: AppDimensions.fontSizeXxl,
               fontWeight: FontWeight.w700,

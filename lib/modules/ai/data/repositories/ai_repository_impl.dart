@@ -47,7 +47,8 @@ class AiRepositoryImpl implements AiRepository {
     try {
       return await _localDataSource.generateResponse(prompt, context: context);
     } catch (e) {
-      throw AiFailure('Error al generar respuesta: $e', code: 'GENERATION_ERROR');
+      throw AiFailure('Error al generar respuesta: $e',
+          code: 'GENERATION_ERROR');
     }
   }
 
@@ -92,7 +93,8 @@ class AiRepositoryImpl implements AiRepository {
     try {
       return await _localDataSource.downloadModel(modelId);
     } catch (e) {
-      throw AiFailure('Error al descargar el modelo: $e', code: 'DOWNLOAD_ERROR');
+      throw AiFailure('Error al descargar el modelo: $e',
+          code: 'DOWNLOAD_ERROR');
     }
   }
 

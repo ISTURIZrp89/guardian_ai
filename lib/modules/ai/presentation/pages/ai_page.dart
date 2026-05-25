@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guardian_ai/core/constants/app_colors.dart';
 import 'package:guardian_ai/core/constants/app_dimensions.dart';
-import 'package:guardian_ai/modules/ai/domain/entities/ai_response.dart';
 import 'package:guardian_ai/modules/ai/domain/entities/clinical_context.dart';
 import 'package:guardian_ai/modules/ai/domain/usecases/generate_clinical_summary.dart';
 import 'package:guardian_ai/modules/ai/presentation/providers/ai_provider.dart';
@@ -47,12 +46,6 @@ class _AiPageState extends ConsumerState<AiPage> {
     final text = _messageController.text.trim();
     if (text.isEmpty) return;
 
-    final userResponse = AiResponse(
-      content: text,
-      category: AiResponseCategory.general,
-      isComplete: true,
-    );
-
     ref.read(aiProvider.notifier).sendMessage(text);
     _messageController.clear();
     _scrollToBottom();
@@ -60,7 +53,7 @@ class _AiPageState extends ConsumerState<AiPage> {
 
   void _showMedicationDialog() {
     final controller = TextEditingController();
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.bgCard,
@@ -115,7 +108,7 @@ class _AiPageState extends ConsumerState<AiPage> {
     final tempController = TextEditingController();
     final satController = TextEditingController();
 
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.bgCard,
@@ -221,17 +214,20 @@ class _AiPageState extends ConsumerState<AiPage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.calculate_rounded, color: AppColors.clinicalBlue),
+            icon: const Icon(Icons.calculate_rounded,
+                color: AppColors.clinicalBlue),
             onPressed: () => context.push('/calculators'),
             tooltip: 'Calculadoras clínicas',
           ),
           IconButton(
-            icon: const Icon(Icons.settings_rounded, color: AppColors.textSecondary),
+            icon: const Icon(Icons.settings_rounded,
+                color: AppColors.textSecondary),
             onPressed: () => context.push('/settings'),
             tooltip: 'Configuración',
           ),
           IconButton(
-            icon: const Icon(Icons.refresh_rounded, color: AppColors.textSecondary),
+            icon: const Icon(Icons.refresh_rounded,
+                color: AppColors.textSecondary),
             onPressed: () => notifier.clearConversation(),
             tooltip: 'Limpiar conversación',
           ),
@@ -284,10 +280,10 @@ class _AiPageState extends ConsumerState<AiPage> {
         vertical: AppDimensions.sm,
       ),
       decoration: BoxDecoration(
-        color: AppColors.statusInfo.withOpacity(0.1),
+        color: AppColors.statusInfo.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppDimensions.cardRadiusSmall),
         border: Border.all(
-          color: AppColors.statusInfo.withOpacity(0.2),
+          color: AppColors.statusInfo.withValues(alpha: 0.2),
         ),
       ),
       child: Row(
@@ -348,10 +344,10 @@ class _AiPageState extends ConsumerState<AiPage> {
               label: 'Resumen Clínico',
               onPressed: () {
                 ref.read(aiProvider.notifier).generateSummary(
-                  context: aiState.clinicalContext ??
-                      const ClinicalContext(),
-                  format: SummaryFormat.soap,
-                );
+                      context:
+                          aiState.clinicalContext ?? const ClinicalContext(),
+                      format: SummaryFormat.soap,
+                    );
                 _scrollToBottom();
               },
               isEnabled: !aiState.isLoading,
@@ -369,10 +365,10 @@ class _AiPageState extends ConsumerState<AiPage> {
               label: 'Recomendación NANDA',
               onPressed: () {
                 ref.read(aiProvider.notifier).generateSummary(
-                  context: aiState.clinicalContext ??
-                      const ClinicalContext(),
-                  format: SummaryFormat.nanda,
-                );
+                      context:
+                          aiState.clinicalContext ?? const ClinicalContext(),
+                      format: SummaryFormat.nanda,
+                    );
                 _scrollToBottom();
               },
               isEnabled: !aiState.isLoading,
@@ -421,7 +417,7 @@ class _AiPageState extends ConsumerState<AiPage> {
                 gradient: AppColors.clinicalGradient,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.textClinical.withOpacity(0.2),
+                    color: AppColors.textClinical.withValues(alpha: 0.2),
                     blurRadius: 20,
                     spreadRadius: 5,
                   ),
@@ -443,7 +439,7 @@ class _AiPageState extends ConsumerState<AiPage> {
               ),
             ),
             const SizedBox(height: AppDimensions.sm),
-            Text(
+            const Text(
               'Realice una consulta clínica o use los\naccesos rápidos para análisis específicos.',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -479,7 +475,7 @@ class _AiPageState extends ConsumerState<AiPage> {
       width: 8,
       height: 8,
       decoration: BoxDecoration(
-        color: AppColors.textClinical.withOpacity(0.7),
+        color: AppColors.textClinical.withValues(alpha: 0.7),
         shape: BoxShape.circle,
       ),
     );
@@ -506,7 +502,8 @@ class _AiPageState extends ConsumerState<AiPage> {
               constraints: const BoxConstraints(maxHeight: 120),
               decoration: BoxDecoration(
                 color: AppColors.bgInput,
-                borderRadius: BorderRadius.circular(AppDimensions.cardRadiusSmall),
+                borderRadius:
+                    BorderRadius.circular(AppDimensions.cardRadiusSmall),
                 border: Border.all(color: AppColors.borderDefault),
               ),
               child: TextField(
@@ -537,7 +534,8 @@ class _AiPageState extends ConsumerState<AiPage> {
             height: 48,
             decoration: BoxDecoration(
               gradient: AppColors.clinicalGradient,
-              borderRadius: BorderRadius.circular(AppDimensions.cardRadiusSmall),
+              borderRadius:
+                  BorderRadius.circular(AppDimensions.cardRadiusSmall),
             ),
             child: IconButton(
               icon: const Icon(Icons.send_rounded, color: AppColors.deepBlack),

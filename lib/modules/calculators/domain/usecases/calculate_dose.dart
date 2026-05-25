@@ -9,7 +9,8 @@ class CalculateDoseUseCase {
     double? maxDose,
     String medicationName = 'medicamento',
   }) {
-    if (weight < AppConstants.minWeightKg || weight > AppConstants.maxWeightKg) {
+    if (weight < AppConstants.minWeightKg ||
+        weight > AppConstants.maxWeightKg) {
       throw ValidationException(
         'El peso debe estar entre ${AppConstants.minWeightKg} y ${AppConstants.maxWeightKg} kg',
         code: 'INVALID_WEIGHT',
@@ -39,15 +40,18 @@ class CalculateDoseUseCase {
 
     if (maxDose != null && roundedDose > maxDose) {
       isCritical = true;
-      description = '¡ATENCIÓN! La dosis calculada (${roundedDose.toStringAsFixed(2)} mg) '
+      description =
+          '¡ATENCIÓN! La dosis calculada (${roundedDose.toStringAsFixed(2)} mg) '
           'supera la dosis máxima recomendada de ${maxDose.toStringAsFixed(2)} mg. '
           'Verificar indicación médica.';
     } else if (maxDose != null && roundedDose > maxDose * 0.9) {
       isWarning = true;
-      description = 'La dosis calculada está cerca del límite máximo recomendado '
+      description =
+          'La dosis calculada está cerca del límite máximo recomendado '
           '(${maxDose.toStringAsFixed(2)} mg). Monitorear al paciente.';
     } else {
-      description = 'Dosis calculada dentro de rangos seguros para $medicationName.';
+      description =
+          'Dosis calculada dentro de rangos seguros para $medicationName.';
     }
 
     return CalculationResult(

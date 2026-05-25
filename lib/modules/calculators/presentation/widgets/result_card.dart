@@ -98,7 +98,8 @@ class ResultCard extends StatelessWidget {
                 padding: const EdgeInsets.all(AppDimensions.md),
                 decoration: BoxDecoration(
                   color: Colors.white.withAlpha(25),
-                  borderRadius: BorderRadius.circular(AppDimensions.cardRadiusSmall),
+                  borderRadius:
+                      BorderRadius.circular(AppDimensions.cardRadiusSmall),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +135,8 @@ class ResultCard extends StatelessWidget {
                 padding: const EdgeInsets.all(AppDimensions.md),
                 decoration: BoxDecoration(
                   color: Colors.white.withAlpha(20),
-                  borderRadius: BorderRadius.circular(AppDimensions.cardRadiusSmall),
+                  borderRadius:
+                      BorderRadius.circular(AppDimensions.cardRadiusSmall),
                 ),
                 child: Column(
                   children: [
@@ -195,7 +197,8 @@ class ResultCard extends StatelessWidget {
               width: double.infinity,
               child: TextButton.icon(
                 onPressed: () {
-                  final text = '${result.label}: ${result.result.toStringAsFixed(2)} ${result.unit}';
+                  final text =
+                      '${result.label}: ${result.result.toStringAsFixed(2)} ${result.unit}';
                   Clipboard.setData(ClipboardData(text: text));
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(

@@ -49,7 +49,8 @@ final class GuardianAIApp extends StatefulWidget {
   State<GuardianAIApp> createState() => _GuardianAIAppState();
 }
 
-class _GuardianAIAppState extends State<GuardianAIApp> with WidgetsBindingObserver {
+class _GuardianAIAppState extends State<GuardianAIApp>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -92,4 +93,3 @@ class _GuardianAIAppState extends State<GuardianAIApp> with WidgetsBindingObserv
     );
   }
 }
-

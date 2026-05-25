@@ -34,10 +34,8 @@ class AppDimensions {
 
   static const EdgeInsets screenPadding =
       EdgeInsets.symmetric(horizontal: 20, vertical: 16);
-  static const EdgeInsets cardPadding =
-      EdgeInsets.all(16);
-  static const EdgeInsets cardPaddingLg =
-      EdgeInsets.all(24);
+  static const EdgeInsets cardPadding = EdgeInsets.all(16);
+  static const EdgeInsets cardPaddingLg = EdgeInsets.all(24);
   static const EdgeInsets inputPadding =
       EdgeInsets.symmetric(horizontal: 16, vertical: 14);
 }

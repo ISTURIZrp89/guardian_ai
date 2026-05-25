@@ -54,7 +54,8 @@ class CalculateAnionGapUseCase {
           'hipernatremia, intoxicación por litio. '
           'Rango normal: 8-12 mEq/L.';
     } else {
-      description = 'Brecha aniónica dentro de rango normal ($roundedGap mEq/L). '
+      description =
+          'Brecha aniónica dentro de rango normal ($roundedGap mEq/L). '
           'Valor de referencia: 8-12 mEq/L.';
     }
 

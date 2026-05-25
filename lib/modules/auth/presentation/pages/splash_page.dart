@@ -82,10 +82,11 @@ class _SplashPageState extends ConsumerState<SplashPage>
             ),
             24.gapH,
             ShaderMask(
-              shaderCallback: (bounds) => AppColors.clinicalGradient.createShader(
+              shaderCallback: (bounds) =>
+                  AppColors.clinicalGradient.createShader(
                 Rect.fromLTWH(0, 0, bounds.width, bounds.height),
               ),
-              child: Text(
+              child: const Text(
                 'GUARDIAN AI',
                 style: TextStyle(
                   fontFamily: 'SFPro',
@@ -97,7 +98,7 @@ class _SplashPageState extends ConsumerState<SplashPage>
               ),
             ),
             8.gapH,
-            Text(
+            const Text(
               'Monitor Clínico Inteligente',
               style: TextStyle(
                 fontFamily: 'IBMPlexSans',
@@ -117,7 +118,7 @@ class _SplashPageState extends ConsumerState<SplashPage>
               ),
             ),
             12.gapH,
-            Text(
+            const Text(
               'Cargando...',
               style: TextStyle(
                 fontFamily: 'SFPro',

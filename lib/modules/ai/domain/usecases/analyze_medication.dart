@@ -35,7 +35,8 @@ class AnalyzeMedication {
   String _buildMedicationPrompt(String medication, ClinicalContext? context) {
     final buffer = StringBuffer();
 
-    buffer.writeln('[SISTEMA] Eres un farmacólogo clínico especializado en enfermería. '
+    buffer.writeln(
+        '[SISTEMA] Eres un farmacólogo clínico especializado en enfermería. '
         'Proporciona análisis detallados de medicamentos incluyendo: '
         'mecanismo de acción, indicaciones, dosis habitual, '
         'efectos adversos, contraindicaciones, interacciones, '

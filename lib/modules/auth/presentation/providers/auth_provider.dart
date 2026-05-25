@@ -104,9 +104,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
             : 'PIN incorrecto. Intentos restantes: $remaining',
         remainingAttempts: remaining,
         status: isLocked ? AppAuthStatus.locked : state.status,
-        lockedUntil: isLocked
-            ? DateTime.now().add(const Duration(minutes: 15))
-            : null,
+        lockedUntil:
+            isLocked ? DateTime.now().add(const Duration(minutes: 15)) : null,
       );
       return false;
     } catch (_) {

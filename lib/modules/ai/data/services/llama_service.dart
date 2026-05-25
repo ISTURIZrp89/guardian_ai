@@ -16,33 +16,34 @@ import '../native/llama_ffi.dart';
 
 /// Envuelve cualquier solicitud al isolate con su puerto de respuesta.
 class _Request {
-  final dynamic    payload;
-  final SendPort   replyTo;
+  final dynamic payload;
+  final SendPort replyTo;
   _Request(this.payload, this.replyTo);
 }
 
 /// Solicitudes específicas (payloads)
 class _LoadPayload {
   final String modelPath;
-  final int    nCtx;
-  final int    nThreads;
+  final int nCtx;
+  final int nThreads;
   _LoadPayload(this.modelPath, this.nCtx, this.nThreads);
 }
 
 class _GeneratePayload {
   final String prompt;
-  final int    maxTokens;
+  final int maxTokens;
   final double temperature;
   _GeneratePayload(this.prompt, this.maxTokens, this.temperature);
 }
 
-class _UnloadPayload  {}
+class _UnloadPayload {}
+
 class _DisposePayload {}
 
 /// Respuesta del isolate al hilo principal.
 class _LlamaResult {
-  final bool    success;
-  final String  text;
+  final bool success;
+  final String text;
   final String? error;
   const _LlamaResult({required this.success, this.text = '', this.error});
 }
@@ -86,18 +87,17 @@ void _isolateEntryPoint(SendPort handshakePort) {
       } finally {
         calloc.free(pathPtr);
       }
-
     } else if (req.payload is _GeneratePayload) {
       final p = req.payload as _GeneratePayload;
       if (session == null) {
-        req.replyTo.send(const _LlamaResult(
-            success: false, error: 'Ningún modelo cargado'));
+        req.replyTo.send(
+            const _LlamaResult(success: false, error: 'Ningún modelo cargado'));
         return;
       }
       final promptPtr = p.prompt.toNativeUtf8();
       try {
-        final resultPtr = ffi.generate(
-            session!, promptPtr, p.maxTokens, p.temperature);
+        final resultPtr =
+            ffi.generate(session!, promptPtr, p.maxTokens, p.temperature);
         if (resultPtr.address == 0) {
           req.replyTo.send(const _LlamaResult(
               success: false, error: 'Error al generar respuesta'));
@@ -109,13 +109,17 @@ void _isolateEntryPoint(SendPort handshakePort) {
       } finally {
         calloc.free(promptPtr);
       }
-
     } else if (req.payload is _UnloadPayload) {
-      if (session != null) { ffi.freeSession(session!); session = null; }
+      if (session != null) {
+        ffi.freeSession(session!);
+        session = null;
+      }
       req.replyTo.send(const _LlamaResult(success: true));
-
     } else if (req.payload is _DisposePayload) {
-      if (session != null) { ffi.freeSession(session!); session = null; }
+      if (session != null) {
+        ffi.freeSession(session!);
+        session = null;
+      }
       ffi.freeBackend();
       req.replyTo.send(const _LlamaResult(success: true));
       receivePort.close();
@@ -128,16 +132,16 @@ void _isolateEntryPoint(SendPort handshakePort) {
 // ══════════════════════════════════════════════════════════════
 
 class LlamaService {
-  Isolate?   _isolate;
-  SendPort?  _toIsolate;
-  bool       _isModelLoaded   = false;
-  String?    _loadedModelPath;
+  Isolate? _isolate;
+  SendPort? _toIsolate;
+  bool _isModelLoaded = false;
+  String? _loadedModelPath;
 
   static final LlamaService _instance = LlamaService._();
   static LlamaService get instance => _instance;
   LlamaService._();
 
-  bool    get isModelLoaded   => _isModelLoaded;
+  bool get isModelLoaded => _isModelLoaded;
   String? get loadedModelPath => _loadedModelPath;
 
   // ── Ciclo de vida del isolate ─────────────────────────────────
@@ -147,8 +151,8 @@ class LlamaService {
     if (!LlamaFFI.isSupported) return;
 
     final handshake = ReceivePort();
-    _isolate     = await Isolate.spawn(_isolateEntryPoint, handshake.sendPort);
-    _toIsolate   = await handshake.first as SendPort;
+    _isolate = await Isolate.spawn(_isolateEntryPoint, handshake.sendPort);
+    _toIsolate = await handshake.first as SendPort;
     handshake.close();
   }
 
@@ -170,14 +174,14 @@ class LlamaService {
   /// [nThreads]   Hilos de CPU (4 es un buen equilibrio en dispositivos móviles).
   Future<bool> loadModel({
     required String modelPath,
-    int nCtx     = 2048,
+    int nCtx = 2048,
     int nThreads = 4,
   }) async {
     if (!LlamaFFI.isSupported) return false;
     await _ensureIsolateRunning();
 
     final result = await _call(_LoadPayload(modelPath, nCtx, nThreads));
-    _isModelLoaded   = result.success;
+    _isModelLoaded = result.success;
     _loadedModelPath = result.success ? modelPath : null;
     return result.success;
   }
@@ -187,17 +191,19 @@ class LlamaService {
   /// [temperature] recomendada: 0.2-0.4 para contexto clínico (respuestas precisas).
   Future<String> generate({
     required String prompt,
-    int    maxTokens  = 512,
+    int maxTokens = 512,
     double temperature = 0.3,
   }) async {
     if (!_isModelLoaded) {
       throw StateError('No hay modelo cargado. Llama loadModel() primero.');
     }
     if (!LlamaFFI.isSupported) {
-      throw UnsupportedError('Inferencia nativa no disponible en esta plataforma.');
+      throw UnsupportedError(
+          'Inferencia nativa no disponible en esta plataforma.');
     }
 
-    final result = await _call(_GeneratePayload(prompt, maxTokens, temperature));
+    final result =
+        await _call(_GeneratePayload(prompt, maxTokens, temperature));
     if (!result.success) throw Exception(result.error ?? 'Error de inferencia');
     return result.text;
   }
@@ -206,7 +212,7 @@ class LlamaService {
   Future<void> unloadModel() async {
     if (_toIsolate == null) return;
     await _call(_UnloadPayload());
-    _isModelLoaded   = false;
+    _isModelLoaded = false;
     _loadedModelPath = null;
   }
 
@@ -214,12 +220,12 @@ class LlamaService {
   Future<void> dispose() async {
     if (_toIsolate != null) {
       await _call(_DisposePayload());
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 100));
     }
     _isolate?.kill(priority: Isolate.immediate);
-    _isolate         = null;
-    _toIsolate       = null;
-    _isModelLoaded   = false;
+    _isolate = null;
+    _toIsolate = null;
+    _isModelLoaded = false;
     _loadedModelPath = null;
   }
 }

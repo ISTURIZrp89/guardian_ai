@@ -53,7 +53,8 @@ class CalculateMeldScoreUseCase {
           'Requiere evaluación urgente por equipo de trasplante.';
     } else if (finalScore >= 20) {
       isCritical = true;
-      description = 'MELD $finalScore — Riesgo de mortalidad a 3 meses: 20-50%. '
+      description =
+          'MELD $finalScore — Riesgo de mortalidad a 3 meses: 20-50%. '
           'Evaluación para trasplante hepático. '
           'Monitoreo estrecho de función hepática y renal.';
     } else if (finalScore >= 10) {

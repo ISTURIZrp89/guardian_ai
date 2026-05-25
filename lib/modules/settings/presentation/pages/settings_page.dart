@@ -5,7 +5,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../shared/widgets/section_header.dart';
-import '../../data/datasources/settings_local_datasource.dart';
 import '../providers/settings_provider.dart';
 import '../../../ai/presentation/providers/ai_provider.dart';
 
@@ -127,11 +126,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
   Widget _buildAiSection(SettingsState state, dynamic notifier) {
     final aiState = ref.watch(aiProvider);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader(title: 'INTELIGENCIA ARTIFICIAL', showDivider: false),
+        const SectionHeader(
+            title: 'INTELIGENCIA ARTIFICIAL', showDivider: false),
         _SettingsCard(
           children: [
             _SwitchTile(
@@ -157,7 +157,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     context: context,
                     builder: (ctx) => AlertDialog(
                       backgroundColor: AppColors.bgSecondary,
-                      title: const Text('Descargar Modelo', style: TextStyle(color: AppColors.textPrimary)),
+                      title: const Text('Descargar Modelo',
+                          style: TextStyle(color: AppColors.textPrimary)),
                       content: Text(
                         'El modelo "$v" pesa varios Gigabytes. ¿Deseas descargarlo ahora y configurarlo como predeterminado?',
                         style: const TextStyle(color: AppColors.textSecondary),
@@ -165,11 +166,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(ctx, false),
-                          child: const Text('Cancelar', style: TextStyle(color: AppColors.textDisabled)),
+                          child: const Text('Cancelar',
+                              style: TextStyle(color: AppColors.textDisabled)),
                         ),
                         TextButton(
                           onPressed: () => Navigator.pop(ctx, true),
-                          child: const Text('Descargar', style: TextStyle(color: AppColors.clinicalBlue)),
+                          child: const Text('Descargar',
+                              style: TextStyle(color: AppColors.clinicalBlue)),
                         ),
                       ],
                     ),
@@ -184,7 +187,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
             if (aiState.isLoading && aiState.downloadProgress > 0.0)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.md, vertical: AppDimensions.sm),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppDimensions.md, vertical: AppDimensions.sm),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -193,11 +197,15 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       children: [
                         const Text(
                           'Descargando...',
-                          style: TextStyle(color: AppColors.clinicalBlue, fontWeight: FontWeight.bold, fontSize: 12),
+                          style: TextStyle(
+                              color: AppColors.clinicalBlue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
                         ),
                         Text(
                           '${(aiState.downloadProgress * 100).toStringAsFixed(1)}%',
-                          style: const TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                          style: const TextStyle(
+                              color: AppColors.textSecondary, fontSize: 12),
                         ),
                       ],
                     ),
@@ -281,7 +289,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   }
 
   void _showResetDialog(dynamic notifier) {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.bgSecondary,

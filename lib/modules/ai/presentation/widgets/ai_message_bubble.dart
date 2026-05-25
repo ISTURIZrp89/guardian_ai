@@ -75,7 +75,7 @@ class _AiMessageBubbleState extends State<AiMessageBubble>
               ),
               child: Text(
                 widget.category!.displayName,
-                style: TextStyle(
+                style: const TextStyle(
                   color: AppColors.textClinical,
                   fontSize: AppDimensions.fontSizeXs,
                   fontWeight: FontWeight.w600,
@@ -93,7 +93,7 @@ class _AiMessageBubbleState extends State<AiMessageBubble>
               padding: const EdgeInsets.all(AppDimensions.md),
               decoration: BoxDecoration(
                 color: widget.isUser
-                    ? AppColors.statusInfo.withOpacity(0.15)
+                    ? AppColors.statusInfo.withValues(alpha: 0.15)
                     : AppColors.bgCard,
                 borderRadius: BorderRadius.circular(
                   widget.isUser
@@ -102,7 +102,7 @@ class _AiMessageBubbleState extends State<AiMessageBubble>
                 ),
                 border: widget.isUser
                     ? Border.all(
-                        color: AppColors.statusInfo.withOpacity(0.3),
+                        color: AppColors.statusInfo.withValues(alpha: 0.3),
                         width: 0.5,
                       )
                     : Border.all(
@@ -110,14 +110,13 @@ class _AiMessageBubbleState extends State<AiMessageBubble>
                         width: 0.5,
                       ),
               ),
-              child: widget.isTyping
-                  ? _buildTypingIndicator()
-                  : _buildContent(),
+              child:
+                  widget.isTyping ? _buildTypingIndicator() : _buildContent(),
             ),
           ),
           if (!widget.isUser && _isCopied)
-            Padding(
-              padding: const EdgeInsets.only(
+            const Padding(
+              padding: EdgeInsets.only(
                 left: AppDimensions.sm,
                 top: 2,
               ),
@@ -141,9 +140,8 @@ class _AiMessageBubbleState extends State<AiMessageBubble>
         Text(
           widget.content,
           style: TextStyle(
-            color: widget.isUser
-                ? AppColors.textPrimary
-                : AppColors.textSecondary,
+            color:
+                widget.isUser ? AppColors.textPrimary : AppColors.textSecondary,
             fontSize: AppDimensions.fontSizeSm,
             height: 1.5,
           ),
@@ -152,7 +150,7 @@ class _AiMessageBubbleState extends State<AiMessageBubble>
           const SizedBox(height: AppDimensions.sm),
           GestureDetector(
             onTap: _copyToClipboard,
-            child: Icon(
+            child: const Icon(
               Icons.copy_rounded,
               size: 14,
               color: AppColors.textDisabled,
@@ -172,7 +170,8 @@ class _AiMessageBubbleState extends State<AiMessageBubble>
           builder: (context, child) {
             final delay = index * 0.2;
             final value = ((_typingController.value - delay) % 1.0);
-            final scale = 0.4 + (0.6 * (1.0 - (value * 4 - 1).abs()).clamp(0.0, 1.0));
+            final scale =
+                0.4 + (0.6 * (1.0 - (value * 4 - 1).abs()).clamp(0.0, 1.0));
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 3),
               child: Transform.scale(

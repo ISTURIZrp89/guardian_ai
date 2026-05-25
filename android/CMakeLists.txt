@@ -22,7 +22,9 @@ set(LLAMA_SRC   "${NATIVE_ROOT}/third_party/llama.cpp")
 set(LLAMA_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_SERVER   OFF CACHE BOOL "" FORCE)
+set(LLAMA_BUILD_COMMON   OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS    OFF CACHE BOOL "" FORCE)
+set(GGML_USE_OPENMP      OFF CACHE BOOL "" FORCE)
 
 # Verificar que llama.cpp fue descargado por setup_llama.sh
 if(NOT EXISTS "${LLAMA_SRC}/CMakeLists.txt")
@@ -51,6 +53,5 @@ target_include_directories(guardian_llama PRIVATE
 # Linkear con llama.cpp y la librería de logging de Android
 target_link_libraries(guardian_llama
     llama
-    common
     log        # Android logging
 )
